@@ -1,0 +1,238 @@
+{
+  "businessName": "ATMIK YOGA & FITNESS",
+  "tagline": "Transform Your Body & Mind with Expert Yoga Training in Asansol",
+  "contact": {
+    "phone": "9000000000",
+    "whatsapp": "919000000000",
+    "address": "Mohishila Colony Rd, Mohishila Colony, Asansol, West Bengal 713303",
+    "hours": {
+      "morning": "5:30 AM – 8:30 AM",
+      "evening": "5:00 PM – 8:00 PM"
+    },
+    "email": "editverse.info@gmail.com"
+  },
+  "hero": {
+    "title": "Stop Surviving. Start Thriving.",
+    "subtitle": "Join Asansol's most loved yoga center and experience the transformation hundreds of students already have — stronger body, calmer mind, and real results in 30 days.",
+    "cta": "Book Your Free Trial",
+    "urgency": "Only 5 spots left this week",
+    "image": "https://images.unsplash.com/photo-1545205597-3d9d02c29597?w=1400&q=80&auto=format&fit=crop"
+  },
+  "instructor": {
+    "name": "Soma Ma'am",
+    "title": "Lead Yoga Instructor & Wellness Coach",
+    "experience": "5+ Years",
+    "certifications": "Certified Hatha Yoga Instructor | Meditation Guide | Pranayama Specialist",
+    "story": "Soma Ma'am began her yoga journey after struggling with chronic stress and low energy. After transforming her own life through dedicated practice, she founded ATMIK Yoga & Fitness with one mission — to make holistic wellness accessible to everyone in Asansol. Her warm, patient teaching style has helped 70+ students achieve results they never thought possible.",
+    "specializations": ["Hatha Yoga", "Weight Loss Yoga", "Meditation & Pranayama", "Beginner-Friendly Training"],
+    "image": "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=800&q=80&auto=format&fit=crop"
+  },
+  "programs": [
+    {
+      "name": "Beginner Yoga",
+      "tagline": "Your first step to a new you",
+      "description": "Perfect for those who have never done yoga before. We start slow, build your foundation, and help you fall in love with the practice — all at your own pace.",
+      "forWhom": "Complete beginners, working professionals, homemakers",
+      "benefits": [
+        "Build flexibility from scratch",
+        "Reduce daily stress and anxiety",
+        "Improve posture and body awareness",
+        "Learn breathing techniques",
+        "Comfortable, judgment-free environment"
+      ],
+      "duration": "45 min sessions",
+      "outcome": "Feel confident and comfortable in your body within 30 days",
+      "image": "https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=600&q=80&auto=format&fit=crop"
+    },
+    {
+      "name": "Weight Loss Yoga",
+      "tagline": "Burn fat, build strength, feel light",
+      "description": "A dynamic blend of flow yoga, core strengthening, and metabolism-boosting poses designed specifically to help you lose weight — without harsh diets or exhausting workouts.",
+      "forWhom": "Anyone wanting to lose weight naturally and sustainably",
+      "benefits": [
+        "Boost metabolism naturally",
+        "Strengthen and tone your core",
+        "Reduce belly fat with targeted poses",
+        "Improve energy throughout the day",
+        "Build a sustainable healthy routine"
+      ],
+      "duration": "60 min sessions",
+      "outcome": "Noticeable body changes within 6 weeks of consistent practice",
+      "image": "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=600&q=80&auto=format&fit=crop"
+    },
+    {
+      "name": "Meditation & Pranayama",
+      "tagline": "Quiet the noise. Find your peace.",
+      "description": "A deeply calming practice focused on breath control, mindfulness, and inner stillness. Ideal for anyone dealing with stress, anxiety, or sleep issues.",
+      "forWhom": "Stressed professionals, anxiety sufferers, sleep-deprived individuals",
+      "benefits": [
+        "Reduce stress hormones dramatically",
+        "Improve sleep quality",
+        "Sharpen focus and mental clarity",
+        "Develop emotional resilience",
+        "Experience lasting inner peace"
+      ],
+      "duration": "40 min sessions",
+      "outcome": "Measurable reduction in stress and better sleep within 2 weeks",
+      "image": "https://images.unsplash.com/photo-1510894347713-fc3ed6fdf539?w=600&q=80&auto=format&fit=crop"
+    },
+    {
+      "name": "Flexibility & Mobility",
+      "tagline": "Move better. Live better.",
+      "description": "Targeted stretching and mobility work to release tight muscles, improve range of motion, and prevent injury — whether you sit at a desk all day or lead an active life.",
+      "forWhom": "Desk workers, seniors, athletes, chronic pain sufferers",
+      "benefits": [
+        "Release chronic muscle tightness",
+        "Relieve back, neck, and shoulder pain",
+        "Improve joint health and mobility",
+        "Prevent sports injuries",
+        "Move with ease and confidence"
+      ],
+      "duration": "45 min sessions",
+      "outcome": "Significant improvement in flexibility and pain reduction in 3 weeks",
+      "image": "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=600&q=80&auto=format&fit=crop"
+    }
+  ],
+  "schedule": [
+    { "day": "Monday", "morning": "5:30 AM – 8:30 AM", "evening": "5:00 PM – 8:00 PM" },
+    { "day": "Tuesday", "morning": "5:30 AM – 8:30 AM", "evening": "5:00 PM – 8:00 PM" },
+    { "day": "Wednesday", "morning": "5:30 AM – 8:30 AM", "evening": "5:00 PM – 8:00 PM" },
+    { "day": "Thursday", "morning": "5:30 AM – 8:30 AM", "evening": "5:00 PM – 8:00 PM" },
+    { "day": "Friday", "morning": "5:30 AM – 8:30 AM", "evening": "5:00 PM – 8:00 PM" },
+    { "day": "Saturday", "morning": "5:30 AM – 8:30 AM", "evening": "5:00 PM – 8:00 PM" },
+    { "day": "Sunday", "morning": "6:00 AM – 8:00 AM", "evening": "Closed" }
+  ],
+  "testimonials": [
+    {
+      "name": "Priya Sharma",
+      "location": "Asansol",
+      "result": "Lost 8 kg in 3 months",
+      "review": "I had tried everything — gym, diets, everything failed. Soma Ma'am's weight loss yoga changed my life. I lost 8 kilos in 3 months and actually enjoyed the process. The environment here is so peaceful and positive.",
+      "rating": 5,
+      "image": "https://images.unsplash.com/photo-1607746882042-944635dfe10e?w=200&q=80&auto=format&fit=crop"
+    },
+    {
+      "name": "Rajesh Gupta",
+      "location": "Burnpur",
+      "result": "Zero back pain after 6 weeks",
+      "review": "I had severe back pain from sitting at my desk all day. After just 6 weeks at ATMIK Yoga, the pain is completely gone. Soma Ma'am is incredibly knowledgeable and her guidance is very personalized.",
+      "rating": 5,
+      "image": "https://images.unsplash.com/photo-1566492031773-4f4e44671857?w=200&q=80&auto=format&fit=crop"
+    },
+    {
+      "name": "Ananya Dey",
+      "location": "Asansol",
+      "result": "Finally sleeping well after years",
+      "review": "I suffered from insomnia and anxiety for years. The Meditation and Pranayama classes at ATMIK are magical. I sleep like a baby now and feel so much calmer. This place is truly a blessing.",
+      "rating": 5,
+      "image": "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=200&q=80&auto=format&fit=crop"
+    },
+    {
+      "name": "Meena Agarwal",
+      "location": "Kulti",
+      "result": "More energy than ever at 52",
+      "review": "At 52, I thought my body couldn't change. But ATMIK Yoga proved me completely wrong. Soma Ma'am's beginner classes are so welcoming and I feel 20 years younger now. Highly recommended!",
+      "rating": 5,
+      "image": "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=200&q=80&auto=format&fit=crop"
+    },
+    {
+      "name": "Suresh Mondal",
+      "location": "Asansol",
+      "result": "Stress-free for the first time in years",
+      "review": "My job stress was destroying me. A friend recommended ATMIK and I'm forever grateful. The pranayama techniques I learned here have completely transformed how I handle pressure. Best investment I've made.",
+      "rating": 5,
+      "image": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&q=80&auto=format&fit=crop"
+    }
+  ],
+  "pricing": [
+    {
+      "name": "Free Trial",
+      "price": "₹0",
+      "duration": "1 Class",
+      "tagline": "Try before you commit",
+      "features": [
+        "1 full yoga class",
+        "Meet Soma Ma'am",
+        "Experience our studio",
+        "Get your personalized plan",
+        "No obligation whatsoever"
+      ],
+      "cta": "Book Free Trial",
+      "highlight": false
+    },
+    {
+      "name": "Monthly",
+      "price": "₹1,299",
+      "duration": "per month",
+      "tagline": "Most popular choice",
+      "features": [
+        "Unlimited classes",
+        "Both morning & evening batches",
+        "Personalized guidance",
+        "Diet & lifestyle tips",
+        "WhatsApp support",
+        "Progress tracking"
+      ],
+      "cta": "Join Now",
+      "highlight": true
+    },
+    {
+      "name": "Drop-In",
+      "price": "₹199",
+      "duration": "per class",
+      "tagline": "Flexible schedule",
+      "features": [
+        "Single class access",
+        "Any batch you choose",
+        "No monthly commitment",
+        "Perfect for travellers",
+        "Book anytime"
+      ],
+      "cta": "Book a Class",
+      "highlight": false
+    }
+  ],
+  "gallery": [
+    {
+      "image": "https://images.unsplash.com/photo-1599901860904-17e6ed7083a0?w=600&q=80&auto=format&fit=crop",
+      "caption": "Morning group session"
+    },
+    {
+      "image": "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=600&q=80&auto=format&fit=crop",
+      "caption": "Meditation practice"
+    },
+    {
+      "image": "https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=600&q=80&auto=format&fit=crop",
+      "caption": "Flexibility training"
+    },
+    {
+      "image": "https://images.unsplash.com/photo-1512438248406-306bd4ade8b5?w=600&q=80&auto=format&fit=crop",
+      "caption": "Pranayama session"
+    },
+    {
+      "image": "https://images.unsplash.com/photo-1588286840104-8957b019727f?w=600&q=80&auto=format&fit=crop",
+      "caption": "Studio environment"
+    },
+    {
+      "image": "https://images.unsplash.com/photo-1552196563-55cd4e45efb3?w=600&q=80&auto=format&fit=crop",
+      "caption": "Evening batch"
+    }
+  ],
+  "leadMagnet": {
+    "title": "Free 7-Day Morning Yoga Routine",
+    "subtitle": "Start your transformation TODAY — for free",
+    "description": "Get our exclusive beginner-friendly 7-day morning yoga routine designed by Soma Ma'am. Perfect for busy people who want real results in just 20 minutes a day.",
+    "benefits": [
+      "Printable daily routine chart",
+      "Pose-by-pose instructions",
+      "Breathing guide included",
+      "Works even if you're a complete beginner"
+    ]
+  },
+  "stats": [
+    { "value": "70+", "label": "Happy Students" },
+    { "value": "5.0", "label": "Google Rating" },
+    { "value": "5+", "label": "Years Experience" },
+    { "value": "4", "label": "Yoga Programs" }
+  ]
+}

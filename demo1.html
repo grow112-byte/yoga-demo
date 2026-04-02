@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title></title>
+<meta name="description" content=""/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        primary: '#1d4ed8',
+        primaryDark: '#1e3a8a',
+        primaryLight: '#dbeafe',
+        accent: '#0ea5e9',
+        surface: '#f8fafc',
+        dark: '#0f172a'
+      },
+      fontFamily: {
+        serif: ['"DM Serif Display"', 'Georgia', 'serif'],
+        sans: ['"DM Sans"', 'sans-serif']
+      }
+    }
+  }
+}
+</script>
+<style>
+  body { font-family: 'DM Sans', sans-serif; }
+  h1, h2, .serif { font-family: 'DM Serif Display', serif; }
+  .hero-overlay { background: linear-gradient(135deg, rgba(29,78,216,0.85) 0%, rgba(14,165,233,0.6) 100%); }
+  .card-hover { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+  .card-hover:hover { transform: translateY(-6px); box-shadow: 0 20px 40px rgba(29,78,216,0.12); }
+  .btn-primary { background: linear-gradient(135deg, #1d4ed8, #0ea5e9); transition: all 0.3s ease; }
+  .btn-primary:hover { background: linear-gradient(135deg, #1e3a8a, #0284c7); transform: translateY(-2px); box-shadow: 0 8px 25px rgba(29,78,216,0.3); }
+  .wa-btn { background: linear-gradient(135deg, #25d366, #128c7e); transition: all 0.3s ease; }
+  .wa-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(37,211,102,0.4); }
+  .section-line { width: 60px; height: 3px; background: linear-gradient(90deg, #1d4ed8, #0ea5e9); border-radius: 2px; }
+  .highlight-card { background: linear-gradient(135deg, #1d4ed8, #0ea5e9); }
+  .stat-card { border-left: 3px solid #1d4ed8; }
+  .nav-link { position: relative; }
+  .nav-link::after { content: ''; position: absolute; bottom: -2px; left: 0; width: 0; height: 2px; background: #1d4ed8; transition: width 0.3s ease; }
+  .nav-link:hover::after { width: 100%; }
+  .floating-wa { position: fixed; bottom: 24px; right: 24px; z-index: 999; }
+  @keyframes fadeInUp { from { opacity:0; transform:translateY(30px); } to { opacity:1; transform:translateY(0); } }
+  .fade-in { animation: fadeInUp 0.7s ease forwards; }
+  .rating-star { color: #f59e0b; }
+  .program-img { height: 220px; object-fit: cover; }
+  .gallery-img { height: 200px; object-fit: cover; width: 100%; }
+  .testimonial-card { background: #fff; border: 1px solid #e2e8f0; }
+  .error-input { border-color: #ef4444 !important; box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2) !important; }
+  .error-text { color: #ef4444; font-size: 0.75rem; font-weight: 600; margin-top: 0.25rem; display: block; }
+</style>
+</head>
+<body class="bg-white text-dark">
+
+<!-- FLOATING WHATSAPP -->
+<a id="wa-float" href="#" target="_blank" rel="noopener" class="floating-wa wa-btn text-white px-5 py-3 rounded-full shadow-2xl flex items-center gap-2 font-semibold text-sm">
+  <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  Chat on WhatsApp
+</a>
+
+<!-- NAVBAR -->
+<nav class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm shadow-sm">
+  <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+    <a href="#" class="block hover:opacity-80 transition-opacity">
+      <p class="font-bold text-primary text-lg leading-tight" id="nav-name">ATMIK YOGA</p>
+      <p class="text-xs text-slate-500" id="nav-location">Asansol</p>
+    </a>
+    <div class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-600">
+      <a href="#programs" class="nav-link hover:text-primary">Programs</a>
+      <a href="#schedule" class="nav-link hover:text-primary">Schedule</a>
+      <a href="#testimonials" class="nav-link hover:text-primary">Reviews</a>
+      <a href="#pricing" class="nav-link hover:text-primary">Pricing</a>
+      <a href="#contact" class="nav-link hover:text-primary">Contact</a>
+    </div>
+    <a id="nav-cta" href="#" class="btn-primary text-white px-5 py-2.5 rounded-full text-sm font-semibold hidden md:block">
+      Free Trial →
+    </a>
+    <button class="md:hidden text-primary" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+    </button>
+  </div>
+  <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-slate-100 px-4 py-4 flex flex-col gap-3 text-sm font-medium text-slate-600">
+    <a href="#programs" class="hover:text-primary">Programs</a>
+    <a href="#schedule" class="hover:text-primary">Schedule</a>
+    <a href="#testimonials" class="hover:text-primary">Reviews</a>
+    <a href="#pricing" class="hover:text-primary">Pricing</a>
+    <a href="#contact" class="hover:text-primary">Contact</a>
+    <a id="mobile-cta" href="#" class="btn-primary text-white text-center py-2.5 rounded-full font-semibold">Book Free Trial</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="relative min-h-screen flex items-center pt-16">
+  <div class="absolute inset-0">
+    <img id="hero-img" src="" alt="Yoga class at ATMIK Yoga Asansol" class="w-full h-full object-cover"/>
+    <div class="hero-overlay absolute inset-0"></div>
+  </div>
+  <div class="relative z-10 max-w-6xl mx-auto px-4 py-24 md:py-0">
+    <div class="max-w-2xl fade-in">
+      <div class="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm text-white px-4 py-2 rounded-full text-sm font-medium mb-6">
+        <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
+        <span id="hero-urgency"></span>
+      </div>
+      <h1 id="hero-title" class="text-4xl md:text-6xl text-white mb-6 leading-tight"></h1>
+      <p id="hero-subtitle" class="text-lg text-blue-100 mb-8 leading-relaxed"></p>
+      <div class="flex flex-col sm:flex-row gap-4">
+        <a id="hero-cta" href="#" class="btn-primary text-white px-8 py-4 rounded-full text-base font-semibold text-center inline-block">
+          Book Free Trial →
+        </a>
+        <a id="hero-wa" href="#" target="_blank" class="wa-btn text-white px-8 py-4 rounded-full text-base font-semibold text-center inline-flex items-center justify-center gap-2">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          WhatsApp Us
+        </a>
+      </div>
+    </div>
+  </div>
+  <!-- Stats bar -->
+  <div class="absolute bottom-0 left-0 right-0 bg-white/10 backdrop-blur-sm border-t border-white/20">
+    <div class="max-w-6xl mx-auto px-4 py-4 grid grid-cols-2 md:grid-cols-4 gap-4" id="stats-bar"></div>
+  </div>
+</section>
+
+<!-- INSTRUCTOR -->
+<section class="py-20 bg-surface" id="about">
+  <div class="max-w-6xl mx-auto px-4">
+    <div class="grid md:grid-cols-2 gap-12 items-center">
+      <div>
+        <p class="text-primary font-semibold text-sm uppercase tracking-widest mb-3">Your Guide</p>
+        <h2 class="serif text-3xl md:text-4xl text-dark mb-4" id="instructor-name"></h2>
+        <p class="text-slate-500 font-medium mb-1" id="instructor-title"></p>
+        <p class="text-primary text-sm font-semibold mb-6" id="instructor-certs"></p>
+        <p class="text-slate-600 leading-relaxed mb-6" id="instructor-story"></p>
+        <div id="instructor-specs" class="flex flex-wrap gap-2 mb-8"></div>
+        <a id="instructor-wa" href="#" target="_blank" class="wa-btn text-white px-6 py-3 rounded-full text-sm font-semibold inline-flex items-center gap-2">
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Ask Soma Ma'am a Question
+        </a>
+      </div>
+      <div class="relative">
+        <img id="instructor-img" src="" alt="Yoga instructor Soma Maam at ATMIK Yoga Asansol" class="rounded-2xl shadow-2xl w-full object-cover" style="height:420px;object-fit:cover"/>
+        <div class="absolute -bottom-6 -left-6 bg-primary text-white rounded-2xl p-5 shadow-xl hidden md:block">
+          <p class="text-3xl font-bold" id="exp-stat">5+</p>
+          <p class="text-sm text-blue-100">Years Experience</p>
+        </div>
+        <div class="absolute -top-4 -right-4 bg-white rounded-xl p-4 shadow-xl hidden md:block">
+          <div class="flex gap-1 mb-1" id="rating-stars-inst"></div>
+          <p class="text-xs text-slate-500">5.0 Rating</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="py-12 bg-slate-50 border-y border-slate-100" id="stats-section">
+  <div class="max-w-6xl mx-auto px-4">
+    <div id="stats-container" class="grid grid-cols-2 md:grid-cols-4 gap-8">
+      <!-- Stats dynamically injected here -->
+    </div>
+  </div>
+</section>
+
+<!-- PROGRAMS -->
+<section class="py-20 bg-white" id="programs">
+  <div class="max-w-6xl mx-auto px-4">
+    <div class="text-center mb-14">
+      <p class="text-primary font-semibold text-sm uppercase tracking-widest mb-3">What We Offer</p>
+      <h2 class="serif text-3xl md:text-4xl text-dark mb-4">Programs Designed for Real Results</h2>
+      <div class="section-line mx-auto"></div>
+    </div>
+    <div class="grid md:grid-cols-2 gap-8" id="programs-grid"></div>
+  </div>
+</section>
+
+<!-- SCHEDULE -->
+<section class="py-20 bg-surface" id="schedule">
+  <div class="max-w-6xl mx-auto px-4">
+    <div class="text-center mb-14">
+      <p class="text-primary font-semibold text-sm uppercase tracking-widest mb-3">Class Timings</p>
+      <h2 class="serif text-3xl md:text-4xl text-dark mb-4">Find a Time That Works for You</h2>
+      <div class="section-line mx-auto"></div>
+    </div>
+    <div class="bg-white rounded-2xl shadow-sm overflow-hidden border border-slate-100">
+      <div class="overflow-x-auto">
+        <table class="w-full" id="schedule-table">
+          <thead>
+            <tr class="bg-primary text-white">
+              <th class="px-6 py-4 text-left font-semibold">Day</th>
+              <th class="px-6 py-4 text-left font-semibold">🌅 Morning Batch</th>
+              <th class="px-6 py-4 text-left font-semibold">🌇 Evening Batch</th>
+              <th class="px-6 py-4 text-left font-semibold">Book</th>
+            </tr>
+          </thead>
+          <tbody id="schedule-body"></tbody>
+        </table>
+      </div>
+    </div>
+    <div class="mt-8 text-center">
+      <a id="schedule-wa" href="#" target="_blank" class="wa-btn text-white px-8 py-4 rounded-full font-semibold inline-flex items-center gap-2">
+        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Book via WhatsApp
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="py-20 bg-white" id="testimonials">
+  <div class="max-w-6xl mx-auto px-4">
+    <div class="text-center mb-14">
+      <p class="text-primary font-semibold text-sm uppercase tracking-widest mb-3">Real Results</p>
+      <h2 class="serif text-3xl md:text-4xl text-dark mb-4">What Our Students Say</h2>
+      <div class="section-line mx-auto"></div>
+    </div>
+    <div class="grid md:grid-cols-3 gap-6" id="testimonials-grid"></div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="py-20 bg-surface" id="pricing">
+  <div class="max-w-6xl mx-auto px-4">
+    <div class="text-center mb-14">
+      <p class="text-primary font-semibold text-sm uppercase tracking-widest mb-3">Simple Pricing</p>
+      <h2 class="serif text-3xl md:text-4xl text-dark mb-4">Start with Zero Risk</h2>
+      <p class="text-slate-500 max-w-xl mx-auto">Your first class is completely free. No credit card, no commitment — just come and experience the transformation.</p>
+    </div>
+    <div class="grid md:grid-cols-3 gap-8 items-start" id="pricing-grid"></div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="py-20 bg-white" id="gallery">
+  <div class="max-w-6xl mx-auto px-4">
+    <div class="text-center mb-14">
+      <p class="text-primary font-semibold text-sm uppercase tracking-widest mb-3">Our Studio</p>
+      <h2 class="serif text-3xl md:text-4xl text-dark mb-4">A Space Made for Your Journey</h2>
+      <div class="section-line mx-auto"></div>
+    </div>
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-4" id="gallery-grid"></div>
+  </div>
+</section>
+
+<!-- LEAD MAGNET -->
+<section class="py-20 bg-primaryDark" id="free-offer">
+  <div class="max-w-4xl mx-auto px-4">
+    <div class="grid md:grid-cols-2 gap-12 items-center">
+      <div>
+        <span class="inline-block bg-accent text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-4">Free Download</span>
+        <h2 class="serif text-3xl md:text-4xl text-white mb-4" id="lead-title"></h2>
+        <p class="text-blue-200 mb-6" id="lead-desc"></p>
+        <ul class="space-y-2" id="lead-benefits"></ul>
+      </div>
+      <div class="bg-white rounded-2xl p-8 shadow-2xl">
+        <h3 class="font-bold text-dark text-xl mb-2">Get It Free Today</h3>
+        <p class="text-slate-500 text-sm mb-6">Enter your details and we'll send it straight to your WhatsApp.</p>
+        <form id="lead-form" action="" method="POST" class="space-y-4">
+          <input type="hidden" name="_captcha" value="false"/>
+          <input type="hidden" name="_subject" value="Free 7-Day Routine Request"/>
+          <input type="hidden" name="_next" value=""/>
+          <input type="text" name="name" placeholder="Your Name" required class="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-primary focus:ring-2 focus:ring-primaryLight"/>
+          <input type="tel" name="phone" placeholder="WhatsApp Number" required class="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-primary focus:ring-2 focus:ring-primaryLight"/>
+          <span id="lead-form-phone-error" class="error-text hidden">Please enter a valid 10-digit phone number.</span>
+          <input type="email" name="email" placeholder="Email Address (optional)" class="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-primary focus:ring-2 focus:ring-primaryLight"/>
+          <span id="lead-form-email-error" class="error-text hidden">Please enter a valid email address.</span>
+          <button type="submit" class="btn-primary w-full text-white py-3 rounded-xl font-semibold text-sm">
+            Send Me the Free Routine →
+          </button>
+          <p class="text-center text-xs text-slate-400">No spam. We respect your privacy.</p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="py-20 bg-surface" id="contact">
+  <div class="max-w-6xl mx-auto px-4">
+    <div class="text-center mb-14">
+      <p class="text-primary font-semibold text-sm uppercase tracking-widest mb-3">Get in Touch</p>
+      <h2 class="serif text-3xl md:text-4xl text-dark mb-4">Visit Us or Send a Message</h2>
+      <div class="section-line mx-auto"></div>
+    </div>
+    <div class="grid md:grid-cols-2 gap-12">
+      <!-- Contact Info -->
+      <div class="space-y-6">
+        <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 flex gap-4">
+          <div class="w-10 h-10 bg-primaryLight rounded-xl flex items-center justify-center flex-shrink-0">📍</div>
+          <div>
+            <p class="font-semibold text-dark mb-1">Location</p>
+            <p class="text-slate-500 text-sm" id="contact-address"></p>
+          </div>
+        </div>
+        <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 flex gap-4">
+          <div class="w-10 h-10 bg-primaryLight rounded-xl flex items-center justify-center flex-shrink-0">📞</div>
+          <div>
+            <p class="font-semibold text-dark mb-1">Phone / WhatsApp</p>
+            <a id="contact-phone" href="#" class="text-primary font-semibold"></a>
+          </div>
+        </div>
+        <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 flex gap-4">
+          <div class="w-10 h-10 bg-primaryLight rounded-xl flex items-center justify-center flex-shrink-0">🕐</div>
+          <div>
+            <p class="font-semibold text-dark mb-2">Batch Timings</p>
+            <p class="text-slate-500 text-sm" id="contact-hours-m"></p>
+            <p class="text-slate-500 text-sm" id="contact-hours-e"></p>
+          </div>
+        </div>
+        <div class="rounded-2xl overflow-hidden shadow-sm border border-slate-100" style="height:200px; background:#e2e8f0; display:flex;align-items:center;justify-content:center;">
+          <div class="text-center">
+            <p id="map-label" class="text-slate-400 text-sm mb-3"></p>
+            <a id="map-link" href="#" target="_blank" class="btn-primary text-white text-sm px-5 py-2.5 rounded-full font-semibold inline-block">Open in Google Maps →</a>
+          </div>
+        </div>
+      </div>
+      <!-- Contact Form -->
+      <div class="bg-white rounded-2xl p-8 shadow-sm border border-slate-100">
+        <h3 class="font-bold text-dark text-xl mb-6">Send Us a Message</h3>
+        <form id="contact-form" action="" method="POST" class="space-y-4">
+          <input type="hidden" name="_captcha" value="false"/>
+          <input type="hidden" name="_subject" value="New Inquiry from Website"/>
+          <input type="text" name="name" placeholder="Your Name" required class="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-primary focus:ring-2 focus:ring-primaryLight"/>
+          <input type="tel" name="phone" placeholder="Phone Number" required class="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-primary focus:ring-2 focus:ring-primaryLight"/>
+          <span id="contact-form-phone-error" class="error-text hidden">Please enter a valid 10-digit phone number.</span>
+          <input type="email" name="email" placeholder="Email Address" class="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-primary focus:ring-2 focus:ring-primaryLight"/>
+          <span id="contact-form-email-error" class="error-text hidden">Please enter a valid email address.</span>
+          <textarea name="message" rows="4" placeholder="Tell us what you're looking for..." required class="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-primary focus:ring-2 focus:ring-primaryLight resize-none"></textarea>
+          <button type="submit" class="btn-primary w-full text-white py-3 rounded-xl font-semibold text-sm">Send Message →</button>
+          <div id="contact-form-status" class="hidden text-green-600 font-semibold text-sm mt-2 text-center bg-green-50 py-2 rounded-lg border border-green-100">✨ Message sent! We'll get back to you shortly.</div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="bg-dark text-slate-400 py-10">
+  <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4">
+    <div>
+      <p class="text-white font-bold text-lg" id="footer-name"></p>
+      <p class="text-sm" id="footer-address"></p>
+    </div>
+    <p class="text-sm">© 2024 <span id="footer-biz"></span>. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+const WA_MSG = encodeURIComponent("Hi, I found your business online and want to know more.");
+
+fetch('data.json')
+  .then(r => r.json())
+  .then(d => {
+    const waLink = `https://wa.me/${d.contact.whatsapp}?text=${WA_MSG}`;
+
+    // NAV
+    document.getElementById('nav-name').textContent = d.businessName;
+    document.getElementById('nav-location').textContent = d.contact.address.split(',').slice(-2).join(',').trim();
+    document.getElementById('nav-cta').href = '#free-trial';
+    document.getElementById('mobile-cta').href = '#free-trial';
+
+    // FLOATING WA
+    document.getElementById('wa-float').href = waLink;
+
+    // HERO
+    document.getElementById('hero-img').src = d.hero.image;
+    document.getElementById('hero-title').textContent = d.hero.title;
+    document.getElementById('hero-subtitle').textContent = d.hero.subtitle;
+    document.getElementById('hero-urgency').textContent = d.hero.urgency;
+    document.getElementById('hero-cta').href = '#pricing';
+    document.getElementById('hero-wa').href = waLink;
+
+    // STATS BAR
+    const sb = document.getElementById('stats-bar');
+    if (!d.stats || d.stats.length === 0) {
+      sb.parentElement.style.display = 'none';
+    } else {
+      d.stats.forEach(s => {
+        sb.innerHTML += `<div class="text-center text-white"><p class="text-2xl font-bold">${s.value}</p><p class="text-xs text-blue-200">${s.label}</p></div>`;
+      });
+    }
+
+    // INSTRUCTOR
+    if (!d.instructor) {
+      document.getElementById('about').style.display = 'none';
+    } else {
+      document.getElementById('instructor-name').textContent = d.instructor.name;
+      document.getElementById('instructor-title').textContent = d.instructor.title;
+      document.getElementById('instructor-certs').textContent = d.instructor.certifications;
+      document.getElementById('instructor-story').textContent = d.instructor.story;
+      document.getElementById('instructor-img').src = d.instructor.image;
+      document.getElementById('instructor-wa').href = waLink;
+      document.getElementById('exp-stat').textContent = d.instructor.experience;
+      const si = document.getElementById('instructor-specs');
+      d.instructor.specializations.forEach(s => {
+        si.innerHTML += `<span class="bg-primaryLight text-primary text-xs font-semibold px-3 py-1.5 rounded-full">${s}</span>`;
+      });
+      const ri = document.getElementById('rating-stars-inst');
+      for(let i=0;i<5;i++) ri.innerHTML += `<svg class="w-4 h-4 rating-star" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>`;
+    }
+
+    // PROGRAMS
+    const pg = document.getElementById('programs-grid');
+    if (!d.programs || d.programs.length === 0) {
+      document.getElementById('programs').style.display = 'none';
+    } else {
+      d.programs.forEach(p => {
+        pg.innerHTML += `
+          <div class="card-hover bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-100">
+            <img src="${p.image}" alt="${p.name} at ATMIK Yoga" class="program-img w-full"/>
+            <div class="p-6">
+              <span class="text-xs font-semibold text-primary bg-primaryLight px-2 py-1 rounded-full">${p.duration}</span>
+              <h3 class="text-xl font-bold text-dark mt-3 mb-1">${p.name}</h3>
+              <p class="text-accent font-medium text-sm mb-3">${p.tagline}</p>
+              <p class="text-slate-500 text-sm mb-4">${p.description}</p>
+              <ul class="space-y-1.5 mb-4">
+                ${p.benefits.map(b=>`<li class="flex items-start gap-2 text-sm text-slate-600"><span class="text-green-500 mt-0.5">✓</span>${b}</li>`).join('')}
+              </ul>
+              <p class="text-xs text-slate-400 mb-4">For: ${p.forWhom}</p>
+              <a href="${waLink}" target="_blank" class="btn-primary text-white text-sm px-5 py-2.5 rounded-full font-semibold inline-block">Book This Class →</a>
+            </div>
+          </div>`;
+      });
+    }
+
+    // SCHEDULE
+    const sb2 = document.getElementById('schedule-body');
+    if (!d.schedule || d.schedule.length === 0) {
+      document.getElementById('schedule').style.display = 'none';
+    } else {
+      d.schedule.forEach((row, i) => {
+        sb2.innerHTML += `<tr class="${i%2===0?'bg-white':'bg-slate-50'} border-b border-slate-100">
+          <td class="px-6 py-4 font-semibold text-dark">${row.day}</td>
+          <td class="px-6 py-4 text-slate-600 text-sm">${row.morning}</td>
+          <td class="px-6 py-4 text-slate-600 text-sm">${row.evening}</td>
+          <td class="px-6 py-4"><a href="${waLink}" target="_blank" class="text-primary text-xs font-semibold hover:underline">Book →</a></td>
+        </tr>`;
+      });
+      document.getElementById('schedule-wa').href = waLink;
+    }
+
+    // TESTIMONIALS
+    const tg = document.getElementById('testimonials-grid');
+    if (!d.testimonials || d.testimonials.length === 0) {
+      document.getElementById('testimonials').style.display = 'none';
+    } else {
+      d.testimonials.forEach(t => {
+        tg.innerHTML += `
+          <div class="card-hover testimonial-card rounded-2xl p-6">
+            <div class="flex gap-1 mb-3">
+              ${Array(t.rating).fill(`<svg class="w-4 h-4 rating-star" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>`).join('')}
+            </div>
+            <span class="inline-block bg-green-50 text-green-700 text-xs font-semibold px-2 py-1 rounded-full mb-3">✓ ${t.result}</span>
+            <p class="text-slate-600 text-sm leading-relaxed mb-4 italic">"${t.review}"</p>
+            <div class="flex items-center gap-3">
+              <img src="${t.image}" alt="${t.name}" class="w-10 h-10 rounded-full object-cover"/>
+              <div>
+                <p class="font-semibold text-dark text-sm">${t.name}</p>
+                <p class="text-xs text-slate-400">${t.location}</p>
+              </div>
+            </div>
+          </div>`;
+      });
+    }
+
+    // PRICING
+    const prg = document.getElementById('pricing-grid');
+    if (!d.pricing || d.pricing.length === 0) {
+      document.getElementById('pricing').style.display = 'none';
+    } else {
+      d.pricing.forEach(p => {
+        prg.innerHTML += `
+          <div class="card-hover rounded-2xl overflow-hidden ${p.highlight ? 'highlight-card text-white shadow-2xl scale-105' : 'bg-white border border-slate-100 shadow-sm'}">
+            ${p.highlight ? '<div class="text-center py-2 bg-white/20 text-xs font-bold uppercase tracking-wider">⭐ Most Popular</div>' : ''}
+            <div class="p-8">
+              <p class="font-semibold ${p.highlight ? 'text-blue-100' : 'text-slate-500'} text-sm mb-1">${p.name}</p>
+              <p class="text-4xl font-bold mb-1 ${p.highlight ? 'text-white' : 'text-dark'}">${p.price}</p>
+              <p class="${p.highlight ? 'text-blue-200' : 'text-slate-400'} text-sm mb-6">${p.duration}</p>
+              <ul class="space-y-3 mb-8">
+                ${p.features.map(f=>`<li class="flex items-start gap-2 text-sm ${p.highlight?'text-blue-50':'text-slate-600'}"><span class="${p.highlight?'text-green-300':'text-green-500'}">✓</span>${f}</li>`).join('')}
+              </ul>
+              <a href="${waLink}" target="_blank" class="${p.highlight?'bg-white text-primary':'btn-primary text-white'} block text-center py-3 rounded-xl font-semibold text-sm transition-all">${p.cta} →</a>
+            </div>
+          </div>`;
+      });
+    }
+
+    // GALLERY
+    const gg = document.getElementById('gallery-grid');
+    if (!d.gallery || d.gallery.length === 0) {
+      document.getElementById('gallery').style.display = 'none';
+    } else {
+      d.gallery.forEach(g => {
+        gg.innerHTML += `<div class="rounded-2xl overflow-hidden card-hover"><img src="${g.image}" alt="${g.caption}" class="gallery-img rounded-2xl"/></div>`;
+      });
+    }
+
+    // LEAD MAGNET
+    if (!d.leadMagnet) {
+      document.getElementById('free-offer').style.display = 'none';
+    } else {
+      document.getElementById('lead-title').textContent = d.leadMagnet.title;
+      document.getElementById('lead-desc').textContent = d.leadMagnet.description;
+      const lb = document.getElementById('lead-benefits');
+      d.leadMagnet.benefits.forEach(b => {
+        lb.innerHTML += `<li class="flex items-center gap-3 text-blue-100 text-sm"><span class="text-green-400">✓</span>${b}</li>`;
+      });
+    }
+
+    // CONTACT
+    if (!d.contact) {
+      document.getElementById('contact').style.display = 'none';
+    } else {
+      document.getElementById('contact-address').textContent = d.contact.address;
+      document.getElementById('contact-phone').textContent = '+91 ' + d.contact.phone;
+      document.getElementById('contact-phone').href = 'tel:+91' + d.contact.phone;
+      document.getElementById('contact-hours-m').textContent = '🌅 Morning: ' + d.contact.hours.morning;
+      document.getElementById('contact-hours-e').textContent = '🌇 Evening: ' + d.contact.hours.evening;
+      document.getElementById('map-label').textContent = '📍 ' + d.contact.address.split(',').slice(0, 2).join(', ');
+      document.getElementById('map-link').href = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(d.contact.address)}`;
+      document.getElementById('lead-form').action = `https://formsubmit.co/${d.contact.email}`;
+      document.getElementById('contact-form').action = `https://formsubmit.co/ajax/${d.contact.email}`;
+      
+      const thankYouUrl = window.location.href.substring(0, window.location.href.lastIndexOf("/") + 1) + "thank-you.html";
+      const leadNext = document.getElementById('lead-form').querySelector('input[name="_next"]');
+      if(leadNext) leadNext.value = thankYouUrl;
+    }
+
+    // FOOTER
+    document.getElementById('footer-name').textContent = d.businessName;
+    document.getElementById('footer-address').textContent = d.contact.address;
+    document.getElementById('footer-biz').textContent = d.businessName;
+
+    const city = d.contact.address.split(',').slice(-2, -1)[0].trim();
+    document.title = `${d.businessName} – Yoga Center in ${city}`;
+    document.querySelector('meta[name="description"]').setAttribute("content", d.tagline);
+    if(document.getElementById('nav-location')) document.getElementById('nav-location').textContent = city;
+    document.getElementById('hero-img').alt = `Yoga class at ${d.businessName} ${city}`;
+    document.getElementById('instructor-img').alt = `${d.instructor.title} ${d.instructor.name} at ${d.businessName} ${city}`;
+
+    // STATS
+    const statsContainer = document.getElementById('stats-container');
+    if (!d.stats || d.stats.length === 0) {
+      document.getElementById('stats-section').style.display = 'none';
+    } else {
+      d.stats.forEach(s => {
+        const valMatch = s.value.match(/[\d.]+/);
+        const targetVal = valMatch ? parseFloat(valMatch[0]) : 0;
+        const suffix = s.value.replace(valMatch ? valMatch[0] : '', '');
+        
+        statsContainer.innerHTML += `
+          <div class="text-center">
+            <p class="text-3xl md:text-4xl font-bold text-primary mb-1">
+              <span class="stat-number" data-target="${targetVal}">${targetVal}</span>${suffix}
+            </p>
+            <p class="text-xs text-slate-500 font-semibold uppercase tracking-widest">${s.label}</p>
+          </div>`;
+      });
+
+      // Observer for animation
+      const statsObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            animateStats();
+            statsObserver.disconnect();
+          }
+        });
+      }, { threshold: 0.5 });
+      statsObserver.observe(statsContainer);
+    }
+
+    function animateStats() {
+      document.querySelectorAll('.stat-number').forEach(el => {
+        const target = parseFloat(el.getAttribute('data-target'));
+        const duration = 1500;
+        let start = 0;
+        let startTime = null;
+        const isDecimal = target % 1 !== 0;
+
+        function step(timestamp) {
+          if (!startTime) startTime = timestamp;
+          const progress = Math.min((timestamp - startTime) / duration, 1);
+          const current = progress * target;
+          el.textContent = isDecimal ? current.toFixed(1) : Math.floor(current);
+          if (progress < 1) {
+            requestAnimationFrame(step);
+          } else {
+            el.textContent = isDecimal ? target.toFixed(1) : target;
+          }
+        }
+        requestAnimationFrame(step);
+      });
+    }
+
+    // FORM VALIDATION
+    const PHONE_REGEX = /^[6-9]\d{9}$/;
+    const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    const validate = (formId) => {
+      const f = document.getElementById(formId);
+      let valid = true;
+
+      const p = f.querySelector('input[name="phone"]');
+      const pe = document.getElementById(formId + '-phone-error');
+      if (p && !PHONE_REGEX.test(p.value.replace(/\s+/g, ''))) {
+        p.classList.add('error-input');
+        pe.classList.remove('hidden');
+        valid = false;
+      } else if(p) {
+        p.classList.remove('error-input');
+        pe.classList.add('hidden');
+      }
+
+      const e = f.querySelector('input[name="email"]');
+      const ee = document.getElementById(formId + '-email-error');
+      if (e && e.value && !EMAIL_REGEX.test(e.value.trim())) {
+        e.classList.add('error-input');
+        ee.classList.remove('hidden');
+        valid = false;
+      } else if(e) {
+        e.classList.remove('error-input');
+        ee.classList.add('hidden');
+      }
+
+      return valid;
+    };
+
+    // LEAD FORM VALIDATION
+    const lf = document.getElementById('lead-form');
+    if(lf) {
+      lf.onsubmit = (e) => {
+        if(!validate('lead-form')) e.preventDefault();
+      };
+    }
+
+    // CONTACT FORM HANDLER
+    const f = document.getElementById('contact-form');
+    if(f) {
+      f.addEventListener('submit', (e) => {
+        e.preventDefault();
+        if(!validate('contact-form')) return;
+
+        const s = document.getElementById('contact-form-status');
+        const b = f.querySelector('button[type="submit"]');
+        const bt = b.textContent;
+        b.disabled = true;
+        b.textContent = 'Sending...';
+
+        fetch(f.action, {
+          method: "POST",
+          body: new FormData(f),
+          headers: { 'Accept': 'application/json' }
+        })
+        .then(res => {
+          b.disabled = false;
+          b.textContent = bt;
+          if(res.ok) {
+            s.classList.remove('hidden');
+            f.reset();
+            setTimeout(() => s.classList.add('hidden'), 5000);
+          } else {
+            console.error('FormSubmit Error:', res.statusText);
+            alert('Something went wrong. Please try again.');
+          }
+        })
+        .catch(err => {
+          b.disabled = false;
+          b.textContent = bt;
+          console.error('Fetch Error:', err);
+          alert('Error connecting to server.');
+        });
+      });
+    }
+  })
+  .catch(err => console.error('Could not load data.json:', err));
+</script>
+</body>
+</html>

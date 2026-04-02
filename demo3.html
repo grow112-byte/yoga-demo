@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title></title>
+<meta name="description" content=""/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;0,900;1,700&family=Playfair+Display:ital,wght@0,700;0,800;1,700&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        sun: '#f97316',
+        sunDark: '#ea580c',
+        sunLight: '#fff7ed',
+        sunMid: '#fed7aa',
+        cream: '#fffbf5',
+        bark: '#7c3d11',
+        leaf: '#4ade80',
+        dark: '#1c0a00'
+      },
+      fontFamily: {
+        display: ['"Playfair Display"', 'Georgia', 'serif'],
+        sans: ['"Nunito"', 'sans-serif']
+      }
+    }
+  }
+}
+</script>
+<style>
+  * { font-family: 'Nunito', sans-serif; }
+  .display { font-family: 'Playfair Display', serif; }
+  body { background: #fffbf5; color: #1c0a00; }
+  .hero-overlay { background: linear-gradient(135deg, rgba(249,115,22,0.88) 0%, rgba(234,88,12,0.65) 60%, rgba(0,0,0,0.3) 100%); }
+  .btn-sun { background: linear-gradient(135deg, #f97316, #ef4444); color: white; transition: all 0.3s ease; font-weight: 700; }
+  .btn-sun:hover { background: linear-gradient(135deg, #ea580c, #dc2626); transform: translateY(-2px); box-shadow: 0 10px 30px rgba(249,115,22,0.35); }
+  .btn-cream { background: white; color: #f97316; border: 2px solid #f97316; transition: all 0.3s ease; font-weight: 700; }
+  .btn-cream:hover { background: #fff7ed; transform: translateY(-2px); }
+  .wa-btn { background: linear-gradient(135deg, #25d366, #16a34a); color: white; font-weight: 700; transition: all 0.3s ease; }
+  .wa-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(37,211,102,0.4); }
+  .card-warm { background: white; border: 2px solid #fed7aa; border-radius: 20px; transition: all 0.3s ease; }
+  .card-warm:hover { border-color: #f97316; transform: translateY(-5px); box-shadow: 0 15px 40px rgba(249,115,22,0.12); }
+  .section-blob { width: 80px; height: 5px; background: linear-gradient(90deg, #f97316, #fbbf24); border-radius: 10px; }
+  .badge { background: linear-gradient(135deg, #f97316, #fbbf24); color: white; }
+  .floating-wa { position: fixed; bottom: 24px; right: 24px; z-index: 999; }
+  .rating-star { color: #f59e0b; }
+  @keyframes bounce-gentle { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-5px)} }
+  .bounce { animation: bounce-gentle 2.5s infinite; }
+  .highlight-plan { background: linear-gradient(145deg, #f97316, #ef4444); }
+  .squiggle { background-image: url("data:image/svg+xml,%3Csvg width='30' height='8' viewBox='0 0 30 8' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 4 C5 0, 10 8, 15 4 S25 0, 30 4' stroke='%23f97316' stroke-width='2' fill='none'/%3E%3C/svg%3E"); background-repeat: repeat-x; height: 8px; }
+  .program-img { height: 200px; object-fit: cover; }
+  .gallery-img { height: 200px; object-fit: cover; width: 100%; }
+  .wavy-divider { background: linear-gradient(135deg, #fff7ed, #fed7aa); height: 60px; clip-path: ellipse(55% 100% at 50% 0%); }
+  .error-input { border-color: #ef4444 !important; box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2) !important; }
+  .error-text { color: #ef4444; font-size: 0.75rem; font-weight: 600; margin-top: 0.25rem; display: block; }
+</style>
+</head>
+<body>
+
+<!-- FLOATING WA -->
+<a id="wa-float" href="#" target="_blank" class="floating-wa wa-btn px-5 py-3 rounded-full shadow-xl flex items-center gap-2 text-sm bounce">
+  <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  Chat Now 👋
+</a>
+
+<!-- NAVBAR -->
+<nav class="fixed top-0 left-0 right-0 z-50 bg-cream/95 backdrop-blur-sm border-b-2 border-sunMid">
+  <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+    <a href="#" class="flex items-center gap-3 hover:opacity-80 transition-opacity">
+      <div class="w-10 h-10 rounded-full bg-sun flex items-center justify-center text-white font-black text-sm">A</div>
+      <div>
+        <p class="font-black text-bark text-sm leading-tight" id="nav-name"></p>
+        <p class="text-xs text-sun font-semibold" id="nav-loc">Asansol</p>
+      </div>
+    </a>
+    <div class="hidden md:flex items-center gap-6 text-sm font-bold text-bark">
+      <a href="#about" class="hover:text-sun transition-colors">About</a>
+      <a href="#programs" class="hover:text-sun transition-colors">Classes</a>
+      <a href="#schedule" class="hover:text-sun transition-colors">Schedule</a>
+      <a href="#testimonials" class="hover:text-sun transition-colors">Reviews</a>
+      <a href="#contact" class="hover:text-sun transition-colors">Contact</a>
+    </div>
+    <a href="#pricing" class="btn-sun text-sm px-5 py-2.5 rounded-full hidden md:block">🎁 Free Trial!</a>
+    <button class="md:hidden text-sun" onclick="document.getElementById('mm3').classList.toggle('hidden')">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h16M4 12h16M4 18h16"/></svg>
+    </button>
+  </div>
+  <div id="mm3" class="hidden md:hidden bg-cream border-t-2 border-sunMid px-5 py-5 flex flex-col gap-4">
+    <a href="#about" class="font-bold text-bark hover:text-sun">About</a>
+    <a href="#programs" class="font-bold text-bark hover:text-sun">Classes</a>
+    <a href="#schedule" class="font-bold text-bark hover:text-sun">Schedule</a>
+    <a href="#testimonials" class="font-bold text-bark hover:text-sun">Reviews</a>
+    <a href="#contact" class="font-bold text-bark hover:text-sun">Contact</a>
+    <a href="#pricing" class="btn-sun text-center py-3 rounded-full font-bold">🎁 Book Free Trial!</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="relative min-h-screen flex items-center pt-16">
+  <div class="absolute inset-0">
+    <img id="hero-img" src="" alt="Yoga class Asansol ATMIK Yoga" class="w-full h-full object-cover"/>
+    <div class="hero-overlay absolute inset-0"></div>
+  </div>
+  <div class="relative z-10 max-w-6xl mx-auto px-4 py-24">
+    <div class="max-w-2xl">
+      <!-- Urgency badge -->
+      <div class="inline-flex items-center gap-2 bg-white/90 text-sun px-4 py-2 rounded-full text-sm font-black mb-6 shadow-lg">
+        <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
+        <span id="hero-urgency"></span>
+      </div>
+      <h1 id="hero-title" class="display text-4xl md:text-6xl text-white font-black leading-tight mb-4"></h1>
+      <div class="squiggle mb-6 w-40 opacity-80"></div>
+      <p id="hero-subtitle" class="text-orange-50 text-lg leading-relaxed mb-8"></p>
+      <div class="flex flex-col sm:flex-row gap-4">
+        <a href="#pricing" class="btn-sun px-8 py-4 rounded-full text-base font-black text-center" id="hero-cta">🎁 Book FREE Trial Class</a>
+        <a id="hero-wa" href="#" target="_blank" class="wa-btn px-8 py-4 rounded-full text-base font-black text-center inline-flex items-center justify-center gap-2">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          WhatsApp Us!
+        </a>
+      </div>
+    </div>
+  </div>
+  <!-- Stat chips bottom -->
+  <div class="absolute bottom-0 left-0 right-0 bg-white/90 backdrop-blur-sm py-4 px-4 border-t-2 border-orange-100">
+    <div class="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4" id="stats-bar"></div>
+  </div>
+</section>
+
+<!-- ABOUT INSTRUCTOR -->
+<section class="py-20 bg-sunLight" id="about">
+  <div class="max-w-6xl mx-auto px-4">
+    <div class="grid md:grid-cols-2 gap-12 items-center">
+      <div>
+        <span class="badge text-xs font-bold px-4 py-1.5 rounded-full mb-4 inline-block uppercase tracking-wider">Meet Your Instructor</span>
+        <h2 class="display text-3xl md:text-4xl text-bark font-bold mb-3" id="instructor-name"></h2>
+        <p class="text-sun font-bold mb-1" id="instructor-title"></p>
+        <p class="text-bark/60 text-sm mb-5" id="instructor-certs"></p>
+        <p class="text-bark/80 leading-relaxed mb-6" id="instructor-story"></p>
+        <div class="flex flex-wrap gap-2 mb-6" id="inst-specs"></div>
+        <div class="flex gap-4">
+          <a id="inst-wa" href="#" target="_blank" class="wa-btn px-5 py-3 rounded-full text-sm inline-flex items-center gap-2">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Say Hello! 👋
+          </a>
+          <a href="#pricing" class="btn-sun text-sm px-5 py-3 rounded-full">Join Us!</a>
+        </div>
+      </div>
+      <div class="relative">
+        <img id="instructor-img" src="" alt="Yoga instructor Soma Maam ATMIK Asansol" class="rounded-3xl shadow-xl w-full object-cover" style="height:420px;object-fit:cover"/>
+        <div class="absolute -bottom-5 -right-5 bg-sun text-white rounded-3xl p-5 shadow-xl hidden md:block">
+          <p class="text-3xl font-black" id="exp-num">5+</p>
+          <p class="text-orange-100 text-sm font-semibold">Years Teaching</p>
+        </div>
+        <div class="absolute top-5 -left-5 bg-white rounded-2xl px-4 py-3 shadow-xl border-2 border-sunMid hidden md:block">
+          <div class="flex gap-1 mb-1" id="stars-inst"></div>
+          <p class="text-xs font-bold text-bark">5.0 Rating ⭐</p>
+        </div>
+      </div>
+    </div>
+</section>
+
+<!-- STATS -->
+<section class="py-12 bg-cream/50" id="stats-section">
+  <div class="max-w-6xl mx-auto px-4">
+    <div id="stats-container" class="grid grid-cols-2 md:grid-cols-4 gap-8">
+      <!-- Stats dynamically injected here -->
+    </div>
+  </div>
+</section>
+
+<!-- PROGRAMS -->
+<section class="py-20 bg-cream" id="programs">
+  <div class="max-w-6xl mx-auto px-4">
+    <div class="text-center mb-14">
+      <span class="badge text-xs font-bold px-4 py-1.5 rounded-full mb-4 inline-block uppercase tracking-wider">Our Classes</span>
+      <h2 class="display text-3xl md:text-4xl text-bark font-bold mb-3">Find the Perfect Class for You</h2>
+      <div class="squiggle mx-auto w-36 mt-2"></div>
+    </div>
+    <div class="grid md:grid-cols-2 gap-8" id="programs-grid"></div>
+  </div>
+</section>
+
+<!-- SCHEDULE -->
+<section class="py-20 bg-sunLight" id="schedule">
+  <div class="max-w-6xl mx-auto px-4">
+    <div class="text-center mb-14">
+      <span class="badge text-xs font-bold px-4 py-1.5 rounded-full mb-4 inline-block uppercase tracking-wider">Batch Timings</span>
+      <h2 class="display text-3xl md:text-4xl text-bark font-bold">We're Open Every Day! 🙌</h2>
+    </div>
+    <div class="bg-white rounded-3xl overflow-hidden shadow-lg border-2 border-sunMid">
+      <div class="overflow-x-auto">
+        <table class="w-full">
+          <thead>
+            <tr class="bg-gradient-to-r from-sun to-sunDark text-white">
+              <th class="px-6 py-4 text-left font-black">Day</th>
+              <th class="px-6 py-4 text-left font-black">🌅 Morning</th>
+              <th class="px-6 py-4 text-left font-black">🌇 Evening</th>
+              <th class="px-6 py-4 text-left font-black">Join</th>
+            </tr>
+          </thead>
+          <tbody id="schedule-body"></tbody>
+        </table>
+      </div>
+    </div>
+    <div class="mt-8 text-center">
+      <a id="schedule-wa" href="#" target="_blank" class="wa-btn px-8 py-4 rounded-full font-black inline-flex items-center gap-2 text-base">
+        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        📲 Book on WhatsApp!
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="py-20 bg-cream" id="testimonials">
+  <div class="max-w-6xl mx-auto px-4">
+    <div class="text-center mb-14">
+      <span class="badge text-xs font-bold px-4 py-1.5 rounded-full mb-4 inline-block uppercase tracking-wider">Happy Students</span>
+      <h2 class="display text-3xl md:text-4xl text-bark font-bold mb-2">Real Stories. Real Smiles. 😊</h2>
+      <p class="text-bark/60 text-sm">70+ students have transformed their lives. Here's what they say.</p>
+    </div>
+    <div class="grid md:grid-cols-3 gap-6" id="testimonials-grid"></div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="py-20 bg-sunLight" id="pricing">
+  <div class="max-w-6xl mx-auto px-4">
+    <div class="text-center mb-14">
+      <span class="badge text-xs font-bold px-4 py-1.5 rounded-full mb-4 inline-block uppercase tracking-wider">Pricing</span>
+      <h2 class="display text-3xl md:text-4xl text-bark font-bold mb-2">Simple. Affordable. No Surprises. 🎉</h2>
+      <p class="text-bark/60">Start with a free class — absolutely no obligation!</p>
+    </div>
+    <div class="grid md:grid-cols-3 gap-8 items-start" id="pricing-grid"></div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="py-20 bg-cream" id="gallery">
+  <div class="max-w-6xl mx-auto px-4">
+    <div class="text-center mb-14">
+      <span class="badge text-xs font-bold px-4 py-1.5 rounded-full mb-4 inline-block uppercase tracking-wider">Our Studio</span>
+      <h2 class="display text-3xl md:text-4xl text-bark font-bold">Peek Inside Our Home 🏡</h2>
+    </div>
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-4" id="gallery-grid"></div>
+  </div>
+</section>
+
+<!-- LEAD MAGNET -->
+<section class="py-20" style="background: linear-gradient(135deg, #f97316, #ef4444);" id="free-offer">
+  <div class="max-w-5xl mx-auto px-4">
+    <div class="grid md:grid-cols-2 gap-12 items-center">
+      <div>
+        <span class="bg-white/20 text-white text-xs font-black px-4 py-1.5 rounded-full uppercase tracking-wider inline-block mb-5">🎁 100% Free Gift</span>
+        <h2 class="display text-3xl md:text-4xl text-white font-black mb-4" id="lead-title"></h2>
+        <p class="text-orange-100 leading-relaxed mb-6" id="lead-desc"></p>
+        <ul class="space-y-3" id="lead-benefits"></ul>
+      </div>
+      <div class="bg-white rounded-3xl p-8 shadow-2xl">
+        <h3 class="text-bark font-black text-xl mb-1">Yes! Send Me the Routine!</h3>
+        <p class="text-bark/60 text-sm mb-6">We'll send it to your WhatsApp right away 🚀</p>
+        <form id="lead-form" action="" method="POST" class="space-y-4">
+          <input type="hidden" name="_captcha" value="false"/>
+          <input type="hidden" name="_subject" value="Free Routine Download Request"/>
+          <input type="hidden" name="_next" value=""/>
+          <input type="text" name="name" placeholder="Your Name 😊" required class="w-full border-2 border-orange-200 rounded-2xl px-4 py-3 text-sm font-semibold focus:outline-none focus:border-sun focus:ring-2 focus:ring-orange-100"/>
+          <input type="tel" name="phone" placeholder="WhatsApp Number 📱" required class="w-full border-2 border-orange-200 rounded-2xl px-4 py-3 text-sm font-semibold focus:outline-none focus:border-sun focus:ring-2 focus:ring-orange-100"/>
+          <span id="lead-form-phone-error" class="error-text hidden">Please enter a valid 10-digit phone number.</span>
+          <input type="email" name="email" placeholder="Email (optional) ✉️" class="w-full border-2 border-orange-200 rounded-2xl px-4 py-3 text-sm font-semibold focus:outline-none focus:border-sun focus:ring-2 focus:ring-orange-100"/>
+          <span id="lead-form-email-error" class="error-text hidden">Please enter a valid email address.</span>
+          <button type="submit" class="btn-sun w-full py-4 rounded-2xl font-black text-sm">
+            🎁 Send Me the Free Routine!
+          </button>
+          <p class="text-center text-xs text-bark/40">No spam. Pinky promise! 🤙</p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="py-20 bg-cream" id="contact">
+  <div class="max-w-6xl mx-auto px-4">
+    <div class="text-center mb-14">
+      <span class="badge text-xs font-bold px-4 py-1.5 rounded-full mb-4 inline-block uppercase tracking-wider">Find Us</span>
+      <h2 class="display text-3xl md:text-4xl text-bark font-bold">Come Say Hello! 👋</h2>
+    </div>
+    <div class="grid md:grid-cols-2 gap-12">
+      <div class="space-y-5">
+        <div class="card-warm p-6 flex gap-4">
+          <div class="w-12 h-12 bg-sunLight rounded-2xl flex items-center justify-center text-xl flex-shrink-0 border-2 border-sunMid">📍</div>
+          <div>
+            <p class="font-black text-bark mb-1">Where to Find Us</p>
+            <p class="text-bark/70 text-sm" id="c-address"></p>
+          </div>
+        </div>
+        <div class="card-warm p-6 flex gap-4">
+          <div class="w-12 h-12 bg-sunLight rounded-2xl flex items-center justify-center text-xl flex-shrink-0 border-2 border-sunMid">📱</div>
+          <div>
+            <p class="font-black text-bark mb-1">Call or WhatsApp</p>
+            <a id="c-phone" href="#" class="text-sun font-black text-lg"></a>
+          </div>
+        </div>
+        <div class="card-warm p-6 flex gap-4">
+          <div class="w-12 h-12 bg-sunLight rounded-2xl flex items-center justify-center text-xl flex-shrink-0 border-2 border-sunMid">⏰</div>
+          <div>
+            <p class="font-black text-bark mb-2">Our Batch Timings</p>
+            <p class="text-bark/70 text-sm" id="c-morning"></p>
+            <p class="text-bark/70 text-sm" id="c-evening"></p>
+          </div>
+        </div>
+        <div class="card-warm flex items-center justify-center py-8">
+          <a id="map-link" href="#" target="_blank" class="btn-sun px-6 py-3 rounded-2xl font-black text-sm">
+            📍 Open Google Maps
+          </a>
+        </div>
+      </div>
+      <div class="bg-white rounded-3xl p-8 shadow-lg border-2 border-sunMid">
+        <h3 class="font-black text-bark text-xl mb-2">Send Us a Message 💬</h3>
+        <p class="text-bark/60 text-sm mb-6">We usually reply within a few hours!</p>
+        <form id="contact-form" action="" method="POST" class="space-y-4">
+          <input type="hidden" name="_captcha" value="false"/>
+          <input type="hidden" name="_subject" value="Website Inquiry"/>
+          <input type="text" name="name" placeholder="Your Name" required class="w-full border-2 border-orange-200 rounded-2xl px-4 py-3 text-sm font-semibold focus:outline-none focus:border-sun focus:ring-2 focus:ring-orange-100"/>
+          <input type="tel" name="phone" placeholder="Phone Number" required class="w-full border-2 border-orange-200 rounded-2xl px-4 py-3 text-sm font-semibold focus:outline-none focus:border-sun focus:ring-2 focus:ring-orange-100"/>
+          <span id="contact-form-phone-error" class="error-text hidden">Please enter a valid 10-digit phone number.</span>
+          <input type="email" name="email" placeholder="Email Address" class="w-full border-2 border-orange-200 rounded-2xl px-4 py-3 text-sm font-semibold focus:outline-none focus:border-sun focus:ring-2 focus:ring-orange-100"/>
+          <span id="contact-form-email-error" class="error-text hidden">Please enter a valid email address.</span>
+          <textarea name="message" rows="4" placeholder="What can we help you with?" required class="w-full border-2 border-orange-200 rounded-2xl px-4 py-3 text-sm font-semibold focus:outline-none focus:border-sun focus:ring-2 focus:ring-orange-100 resize-none"></textarea>
+          <button type="submit" class="btn-sun w-full py-4 rounded-2xl font-black text-sm">Send Message! 🚀</button>
+          <div id="contact-form-status" class="hidden text-sun font-black text-sm mt-2 text-center bg-orange-50/50 py-2 rounded-xl border-2 border-orange-200">✨ Message sent! We'll get back to you soon.</div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="bg-bark text-orange-200 py-10">
+  <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4">
+    <div>
+      <p class="text-white font-black text-xl display" id="footer-name"></p>
+      <p class="text-sm opacity-70 mt-1" id="footer-addr"></p>
+    </div>
+    <div class="text-center">
+      <p class="text-sm opacity-60">Made with ❤️ for Asansol</p>
+      <p class="text-xs opacity-40 mt-1">© 2024 <span id="footer-biz"></span></p>
+    </div>
+  </div>
+</footer>
+
+<script>
+const WA_MSG = encodeURIComponent("Hi, I found your business online and want to know more.");
+
+fetch('data.json')
+  .then(r => r.json())
+  .then(d => {
+    const waLink = `https://wa.me/${d.contact.whatsapp}?text=${WA_MSG}`;
+
+    // NAV
+    document.getElementById('nav-name').textContent = d.businessName;
+
+    // FLOAT
+    document.getElementById('wa-float').href = waLink;
+
+    // HERO
+    document.getElementById('hero-img').src = d.hero.image;
+    document.getElementById('hero-title').textContent = d.hero.title;
+    document.getElementById('hero-subtitle').textContent = d.hero.subtitle;
+    document.getElementById('hero-urgency').textContent = '⚡ ' + d.hero.urgency;
+    document.getElementById('hero-wa').href = waLink;
+
+    // STATS
+    const sb = document.getElementById('stats-bar');
+    if (!d.stats || d.stats.length === 0) {
+      sb.parentElement.style.display = 'none';
+    } else {
+      d.stats.forEach(s => {
+        sb.innerHTML += `<div class="text-center"><p class="text-2xl font-black text-sun">${s.value}</p><p class="text-xs font-bold text-bark/60">${s.label}</p></div>`;
+      });
+    }
+
+    // INSTRUCTOR
+    if (!d.instructor) {
+      document.getElementById('about').style.display = 'none';
+    } else {
+      document.getElementById('instructor-name').textContent = d.instructor.name;
+      document.getElementById('instructor-title').textContent = d.instructor.title;
+      document.getElementById('instructor-certs').textContent = d.instructor.certifications;
+      document.getElementById('instructor-story').textContent = d.instructor.story;
+      document.getElementById('instructor-img').src = d.instructor.image;
+      document.getElementById('inst-wa').href = waLink;
+      document.getElementById('exp-num').textContent = d.instructor.experience;
+      const is2 = document.getElementById('inst-specs');
+      d.instructor.specializations.forEach(s => {
+        is2.innerHTML += `<span class="bg-sunMid text-bark text-xs font-black px-3 py-1.5 rounded-full">${s}</span>`;
+      });
+      const si = document.getElementById('stars-inst');
+      for(let i=0;i<5;i++) si.innerHTML += `<svg class="w-4 h-4 rating-star" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>`;
+    }
+
+    // PROGRAMS
+    const pg = document.getElementById('programs-grid');
+    if (!d.programs || d.programs.length === 0) {
+      document.getElementById('programs').style.display = 'none';
+    } else {
+      d.programs.forEach(p => {
+        pg.innerHTML += `
+          <div class="card-warm overflow-hidden">
+            <img src="${p.image}" alt="${p.name}" class="program-img w-full rounded-t-2xl -mt-0"/>
+            <div class="p-6">
+              <div class="flex items-center justify-between mb-2">
+                <span class="badge text-xs font-black px-3 py-1 rounded-full">${p.duration}</span>
+              </div>
+              <h3 class="text-xl font-black text-bark mb-1">${p.name}</h3>
+              <p class="text-sun font-bold text-sm mb-3">${p.tagline}</p>
+              <p class="text-bark/70 text-sm mb-4 leading-relaxed">${p.description}</p>
+              <ul class="space-y-1.5 mb-4">
+                ${p.benefits.map(b=>`<li class="flex items-start gap-2 text-sm text-bark/80"><span class="text-green-500 font-black mt-0.5">✓</span>${b}</li>`).join('')}
+              </ul>
+              <p class="text-xs text-bark/40 mb-4 font-semibold">For: ${p.forWhom}</p>
+              <a href="${waLink}" target="_blank" class="btn-sun text-sm px-5 py-2.5 rounded-full font-black inline-block">Join This Class! →</a>
+            </div>
+          </div>`;
+      });
+    }
+
+    // SCHEDULE
+    const scb = document.getElementById('schedule-body');
+    if (!d.schedule || d.schedule.length === 0) {
+      document.getElementById('schedule').style.display = 'none';
+    } else {
+      d.schedule.forEach((row, i) => {
+        scb.innerHTML += `<tr class="${i%2===0?'bg-orange-50/50':''} border-b-2 border-orange-100">
+          <td class="px-6 py-4 font-black text-bark">${row.day}</td>
+          <td class="px-6 py-4 text-bark/70 text-sm font-semibold">${row.morning}</td>
+          <td class="px-6 py-4 text-bark/70 text-sm font-semibold">${row.evening}</td>
+          <td class="px-6 py-4"><a href="${waLink}" target="_blank" class="btn-sun text-xs px-3 py-1.5 rounded-full font-black">Book!</a></td>
+        </tr>`;
+      });
+      document.getElementById('schedule-wa').href = waLink;
+    }
+
+    // TESTIMONIALS
+    const tg = document.getElementById('testimonials-grid');
+    if (!d.testimonials || d.testimonials.length === 0) {
+      document.getElementById('testimonials').style.display = 'none';
+    } else {
+      d.testimonials.forEach(t => {
+        tg.innerHTML += `
+          <div class="card-warm p-6">
+            <div class="flex gap-1 mb-3">
+              ${Array(t.rating).fill(`<svg class="w-4 h-4 rating-star" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>`).join('')}
+            </div>
+            <span class="inline-block bg-green-50 border border-green-200 text-green-700 text-xs font-black px-2 py-1 rounded-full mb-3">✓ ${t.result}</span>
+            <p class="text-bark/80 text-sm leading-relaxed mb-4 italic">"${t.review}"</p>
+            <div class="flex items-center gap-3 border-t-2 border-orange-100 pt-4">
+              <img src="${t.image}" alt="${t.name}" class="w-11 h-11 rounded-full object-cover border-2 border-sunMid"/>
+              <div>
+                <p class="font-black text-bark text-sm">${t.name}</p>
+                <p class="text-xs text-bark/50 font-semibold">${t.location}</p>
+              </div>
+            </div>
+          </div>`;
+      });
+    }
+
+    // PRICING
+    const prg = document.getElementById('pricing-grid');
+    if (!d.pricing || d.pricing.length === 0) {
+      document.getElementById('pricing').style.display = 'none';
+    } else {
+      d.pricing.forEach(p => {
+        prg.innerHTML += `
+          <div class="rounded-3xl overflow-hidden ${p.highlight ? 'highlight-plan shadow-2xl scale-105' : 'bg-white border-2 border-sunMid'}">
+            ${p.highlight ? `<div class="text-center py-3 bg-white/20"><p class="text-white text-xs font-black uppercase tracking-wider">🏆 Most Popular!</p></div>` : ''}
+            <div class="p-8">
+              <p class="${p.highlight?'text-orange-100':'text-bark/50'} text-xs font-black uppercase tracking-wider mb-2">${p.name}</p>
+              <p class="text-4xl font-black mb-1 ${p.highlight?'text-white':'text-bark'}">${p.price}</p>
+              <p class="${p.highlight?'text-orange-100':'text-bark/50'} text-sm mb-6 font-semibold">${p.duration} · ${p.tagline}</p>
+              <ul class="space-y-2.5 mb-8">
+                ${p.features.map(f=>`<li class="flex items-start gap-2 text-sm ${p.highlight?'text-white':'text-bark/70'} font-semibold"><span class="${p.highlight?'text-yellow-300':'text-green-500'}">✓</span>${f}</li>`).join('')}
+              </ul>
+              <a href="${waLink}" target="_blank" class="${p.highlight?'bg-white text-sun':'btn-sun'} block text-center py-3.5 rounded-2xl font-black text-sm">${p.cta}! →</a>
+            </div>
+          </div>`;
+      });
+    }
+
+    // GALLERY
+    const gg = document.getElementById('gallery-grid');
+    if (!d.gallery || d.gallery.length === 0) {
+      document.getElementById('gallery').style.display = 'none';
+    } else {
+      d.gallery.forEach(g => {
+        gg.innerHTML += `<div class="rounded-2xl overflow-hidden border-2 border-sunMid"><img src="${g.image}" alt="${g.caption}" class="gallery-img rounded-2xl hover:scale-105 transition-transform duration-300"/></div>`;
+      });
+    }
+
+    // LEAD MAGNET
+    if (!d.leadMagnet) {
+      document.getElementById('free-offer').style.display = 'none';
+    } else {
+      document.getElementById('lead-title').textContent = d.leadMagnet.title;
+      document.getElementById('lead-desc').textContent = d.leadMagnet.description;
+      const lb = document.getElementById('lead-benefits');
+      d.leadMagnet.benefits.forEach(b => {
+        lb.innerHTML += `<li class="flex items-center gap-3 text-orange-50 text-sm font-semibold"><span class="text-yellow-300 font-black">✓</span>${b}</li>`;
+      });
+    }
+
+    // CONTACT
+    if (!d.contact) {
+      document.getElementById('contact').style.display = 'none';
+    } else {
+      document.getElementById('c-address').textContent = d.contact.address;
+      document.getElementById('c-phone').textContent = '+91 ' + d.contact.phone;
+      document.getElementById('c-phone').href = 'tel:+91' + d.contact.phone;
+      document.getElementById('c-morning').textContent = '🌅 Morning: ' + d.contact.hours.morning;
+      document.getElementById('c-evening').textContent = '🌇 Evening: ' + d.contact.hours.evening;
+      document.getElementById('map-link').href = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(d.contact.address)}`;
+      document.getElementById('lead-form').action = `https://formsubmit.co/${d.contact.email}`;
+      document.getElementById('contact-form').action = `https://formsubmit.co/ajax/${d.contact.email}`;
+      
+      const thankYouUrl = window.location.href.substring(0, window.location.href.lastIndexOf("/") + 1) + "thank-you.html";
+      const leadNext = document.getElementById('lead-form').querySelector('input[name="_next"]');
+      if(leadNext) leadNext.value = thankYouUrl;
+    }
+
+    // FOOTER
+    document.getElementById('footer-name').textContent = d.businessName;
+    document.getElementById('footer-addr').textContent = d.contact.address;
+    document.getElementById('footer-biz').textContent = d.businessName;
+
+    const city = d.contact.address.split(',').slice(-2, -1)[0].trim();
+    document.title = `${d.businessName} | Yoga Classes in ${city}`;
+    document.querySelector('meta[name="description"]').setAttribute("content", d.tagline);
+    if(document.getElementById('nav-loc')) document.getElementById('nav-loc').textContent = city;
+    document.getElementById('hero-img').alt = `Yoga class ${city} ${d.businessName}`;
+    document.getElementById('instructor-img').alt = `Yoga instructor ${d.instructor.name} ${d.businessName} ${city}`;
+
+    // STATS
+    const statsContainer = document.getElementById('stats-container');
+    if (!d.stats || d.stats.length === 0) {
+      document.getElementById('stats-section').style.display = 'none';
+    } else {
+      d.stats.forEach(s => {
+        const valMatch = s.value.match(/[\d.]+/);
+        const targetVal = valMatch ? parseFloat(valMatch[0]) : 0;
+        const suffix = s.value.replace(valMatch ? valMatch[0] : '', '');
+        
+        statsContainer.innerHTML += `
+          <div class="text-center">
+            <p class="text-3xl md:text-5xl font-black text-sun mb-1">
+              <span class="stat-number" data-target="${targetVal}">${targetVal}</span>${suffix}
+            </p>
+            <p class="text-xs text-bark font-bold uppercase tracking-wider">${s.label}</p>
+          </div>`;
+      });
+
+      const statsObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            animateStats();
+            statsObserver.disconnect();
+          }
+        });
+      }, { threshold: 0.5 });
+      statsObserver.observe(statsContainer);
+    }
+
+    function animateStats() {
+      document.querySelectorAll('.stat-number').forEach(el => {
+        const target = parseFloat(el.getAttribute('data-target'));
+        const duration = 1500;
+        let start = 0;
+        let startTime = null;
+        const isDecimal = target % 1 !== 0;
+
+        function step(timestamp) {
+          if (!startTime) startTime = timestamp;
+          const progress = Math.min((timestamp - startTime) / duration, 1);
+          const current = progress * target;
+          el.textContent = isDecimal ? current.toFixed(1) : Math.floor(current);
+          if (progress < 1) {
+            requestAnimationFrame(step);
+          } else {
+            el.textContent = isDecimal ? target.toFixed(1) : target;
+          }
+        }
+        requestAnimationFrame(step);
+      });
+    }
+
+    // FORM VALIDATION
+    const PHONE_REGEX = /^[6-9]\d{9}$/;
+    const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    const validate = (formId) => {
+      const f = document.getElementById(formId);
+      let valid = true;
+
+      const p = f.querySelector('input[name="phone"]');
+      const pe = document.getElementById(formId + '-phone-error');
+      if (p && !PHONE_REGEX.test(p.value.replace(/\s+/g, ''))) {
+        p.classList.add('error-input');
+        pe.classList.remove('hidden');
+        valid = false;
+      } else if(p) {
+        p.classList.remove('error-input');
+        pe.classList.add('hidden');
+      }
+
+      const e = f.querySelector('input[name="email"]');
+      const ee = document.getElementById(formId + '-email-error');
+      if (e && e.value && !EMAIL_REGEX.test(e.value.trim())) {
+        e.classList.add('error-input');
+        ee.classList.remove('hidden');
+        valid = false;
+      } else if(e) {
+        e.classList.remove('error-input');
+        ee.classList.add('hidden');
+      }
+
+      return valid;
+    };
+
+    // LEAD FORM VALIDATION
+    const lf = document.getElementById('lead-form');
+    if(lf) {
+      lf.onsubmit = (e) => {
+        if(!validate('lead-form')) e.preventDefault();
+      };
+    }
+
+    // FORM HANDLER
+    const f = document.getElementById('contact-form');
+    if(f) {
+      f.addEventListener('submit', (e) => {
+        e.preventDefault();
+        if(!validate('contact-form')) return;
+
+        const s = document.getElementById('contact-form-status');
+        const b = f.querySelector('button[type="submit"]');
+        const bt = b.textContent;
+        b.disabled = true;
+        b.textContent = 'Sending...';
+
+        fetch(f.action, {
+          method: "POST",
+          body: new FormData(f),
+          headers: { 'Accept': 'application/json' }
+        })
+        .then(res => {
+          b.disabled = false;
+          b.textContent = bt;
+          if(res.ok) {
+            s.classList.remove('hidden');
+            f.reset();
+            setTimeout(() => s.classList.add('hidden'), 5000);
+          } else {
+            console.error('FormSubmit Error:', res.statusText);
+            alert('Something went wrong. Please try again.');
+          }
+        })
+        .catch(err => {
+          b.disabled = false;
+          b.textContent = bt;
+          console.error('Fetch Error:', err);
+          alert('Error connecting to server.');
+        });
+      });
+    }
+  });
+</script>
+</body>
+</html>

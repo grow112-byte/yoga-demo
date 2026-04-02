@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title></title>
+<meta name="description" content=""/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        gold: '#c9a84c',
+        goldLight: '#f0d98d',
+        goldDark: '#9a7a2b',
+        charcoal: '#1a1a1a',
+        surface: '#111111',
+        card: '#1e1e1e',
+        muted: '#6b7280',
+        offwhite: '#f5f0e8'
+      },
+      fontFamily: {
+        display: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+        sans: ['"Outfit"', 'sans-serif']
+      }
+    }
+  }
+}
+</script>
+<style>
+  * { font-family: 'Outfit', sans-serif; }
+  .display { font-family: 'Cormorant Garamond', serif; }
+  body { background: #111111; color: #e5e0d8; }
+  .gold-gradient { background: linear-gradient(135deg, #c9a84c, #f0d98d, #c9a84c); }
+  .gold-text { background: linear-gradient(135deg, #c9a84c, #f0d98d); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .hero-overlay { background: linear-gradient(to right, rgba(17,17,17,0.95) 40%, rgba(17,17,17,0.5) 100%); }
+  .btn-gold { background: linear-gradient(135deg, #c9a84c, #e8c96b); color: #111; transition: all 0.3s ease; font-weight: 600; }
+  .btn-gold:hover { background: linear-gradient(135deg, #b8932e, #c9a84c); transform: translateY(-2px); box-shadow: 0 8px 30px rgba(201,168,76,0.4); }
+  .btn-outline { border: 1px solid #c9a84c; color: #c9a84c; transition: all 0.3s ease; }
+  .btn-outline:hover { background: rgba(201,168,76,0.1); transform: translateY(-2px); }
+  .wa-btn { background: linear-gradient(135deg, #25d366, #128c7e); transition: all 0.3s ease; color: white; }
+  .wa-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(37,211,102,0.35); }
+  .card-dark { background: #1e1e1e; border: 1px solid #2a2a2a; transition: all 0.3s ease; }
+  .card-dark:hover { border-color: #c9a84c; transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
+  .divider-gold { height: 1px; background: linear-gradient(90deg, transparent, #c9a84c, transparent); }
+  .section-num { font-family: 'Cormorant Garamond', serif; font-size: 5rem; color: rgba(201,168,76,0.06); font-weight: 700; line-height: 1; position: absolute; top: -20px; left: 0; }
+  .floating-wa { position: fixed; bottom: 24px; right: 24px; z-index: 999; }
+  @keyframes shimmer { 0%,100%{opacity:1} 50%{opacity:0.7} }
+  .urgency-badge { animation: shimmer 2s infinite; }
+  .rating-star { color: #c9a84c; }
+  .program-img { height: 200px; object-fit: cover; }
+  .gallery-img { height: 220px; object-fit: cover; width: 100%; }
+  .table-row-odd { background: rgba(255,255,255,0.02); }
+  .table-row-even { background: transparent; }
+  .highlight-plan { background: linear-gradient(145deg, #1e1e1e, #252520); border: 1px solid #c9a84c; }
+  .error-input { border-color: #ef4444 !important; box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2) !important; }
+  .error-text { color: #ef4444; font-size: 0.75rem; font-weight: 600; margin-top: 0.25rem; display: block; }
+</style>
+</head>
+<body>
+
+<!-- FLOATING WA -->
+<a id="wa-float" href="#" target="_blank" rel="noopener" class="floating-wa wa-btn px-5 py-3 rounded-full shadow-2xl flex items-center gap-2 font-semibold text-sm">
+  <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  WhatsApp Us
+</a>
+
+<!-- NAVBAR -->
+<nav class="fixed top-0 left-0 right-0 z-50 bg-charcoal/90 backdrop-blur-md border-b border-white/5">
+  <div class="max-w-7xl mx-auto px-5 py-4 flex items-center justify-between">
+    <a href="#" class="block hover:opacity-80 transition-opacity">
+      <p class="font-bold gold-text text-lg tracking-widest display" id="nav-name">ATMIK YOGA</p>
+      <p class="text-xs text-muted tracking-wider" id="nav-loc">ASANSOL</p>
+    </a>
+    <div class="hidden md:flex items-center gap-8 text-xs font-medium text-muted tracking-wider uppercase">
+      <a href="#about" class="hover:text-gold transition-colors">About</a>
+      <a href="#programs" class="hover:text-gold transition-colors">Programs</a>
+      <a href="#schedule" class="hover:text-gold transition-colors">Schedule</a>
+      <a href="#pricing" class="hover:text-gold transition-colors">Pricing</a>
+      <a href="#contact" class="hover:text-gold transition-colors">Contact</a>
+    </div>
+    <a href="#pricing" class="btn-gold text-xs px-5 py-2.5 rounded-full tracking-wider uppercase hidden md:block">Free Trial</a>
+    <button class="md:hidden text-gold" onclick="document.getElementById('mm').classList.toggle('hidden')">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+    </button>
+  </div>
+  <div id="mm" class="hidden md:hidden bg-charcoal border-t border-white/5 px-5 py-5 flex flex-col gap-4 text-sm text-muted">
+    <a href="#about" class="hover:text-gold">About</a>
+    <a href="#programs" class="hover:text-gold">Programs</a>
+    <a href="#schedule" class="hover:text-gold">Schedule</a>
+    <a href="#pricing" class="hover:text-gold">Pricing</a>
+    <a href="#contact" class="hover:text-gold">Contact</a>
+    <a href="#pricing" class="btn-gold text-center py-2.5 rounded-full text-xs font-semibold uppercase tracking-wider">Book Free Trial</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="relative min-h-screen flex items-center pt-20">
+  <div class="absolute inset-0">
+    <img id="hero-img" src="" alt="Premium yoga studio ATMIK Asansol" class="w-full h-full object-cover opacity-50"/>
+    <div class="hero-overlay absolute inset-0"></div>
+  </div>
+  <div class="relative z-10 max-w-7xl mx-auto px-5 py-28">
+    <div class="max-w-3xl">
+      <div class="flex items-center gap-3 mb-8">
+        <div class="divider-gold w-12"></div>
+        <span class="text-gold text-xs font-semibold tracking-widest uppercase" id="hero-badge">Asansol's Finest Yoga Studio</span>
+      </div>
+      <h1 id="hero-title" class="display text-5xl md:text-7xl text-offwhite leading-tight mb-6"></h1>
+      <p id="hero-subtitle" class="text-muted text-lg leading-relaxed mb-8 max-w-xl"></p>
+      <div class="flex flex-col sm:flex-row gap-4 mb-12">
+        <a href="#pricing" class="btn-gold px-8 py-4 rounded-full text-sm tracking-wider uppercase font-semibold text-center" id="hero-cta">Book Free Trial</a>
+        <a id="hero-wa" href="#" target="_blank" class="wa-btn px-8 py-4 rounded-full text-sm font-semibold text-center inline-flex items-center justify-center gap-2">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Chat on WhatsApp
+        </a>
+      </div>
+      <div class="flex flex-wrap gap-8" id="stats-row"></div>
+    </div>
+  </div>
+  <!-- Urgency strip -->
+  <div class="absolute bottom-0 left-0 right-0 border-t border-white/5 bg-black/50 backdrop-blur-sm py-3 px-5">
+    <p class="text-center text-sm text-gold urgency-badge" id="hero-urgency"></p>
+  </div>
+</section>
+
+<!-- ABOUT / INSTRUCTOR -->
+<section class="py-24" id="about">
+  <div class="max-w-7xl mx-auto px-5">
+    <div class="grid md:grid-cols-2 gap-16 items-center">
+      <div class="relative order-2 md:order-1">
+        <img id="instructor-img" src="" alt="Soma Maam yoga instructor Asansol" class="rounded-2xl w-full object-cover" style="height:500px;object-fit:cover"/>
+        <div class="absolute bottom-6 left-6 right-6 bg-charcoal/90 backdrop-blur-sm rounded-xl p-5 border border-gold/20">
+          <div class="flex justify-between items-center">
+            <div>
+              <p class="gold-text display text-xl font-semibold" id="inst-name-card"></p>
+              <p class="text-xs text-muted mt-1" id="inst-title-card"></p>
+            </div>
+            <div class="text-right">
+              <p class="text-gold font-bold text-2xl" id="inst-exp-card"></p>
+              <p class="text-xs text-muted">Experience</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="order-1 md:order-2">
+        <div class="flex items-center gap-3 mb-6">
+          <div class="divider-gold w-8"></div>
+          <span class="text-gold text-xs tracking-widest uppercase font-semibold">Your Instructor</span>
+        </div>
+        <h2 class="display text-4xl md:text-5xl text-offwhite mb-4" id="instructor-heading"></h2>
+        <p class="text-gold/80 text-sm mb-6" id="inst-certs"></p>
+        <p class="text-muted leading-relaxed mb-8" id="inst-story"></p>
+        <div class="flex flex-wrap gap-2 mb-8" id="inst-specs"></div>
+        <a id="inst-wa" href="#" target="_blank" class="wa-btn px-6 py-3 rounded-full text-sm font-semibold inline-flex items-center gap-2">
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Message Soma Ma'am
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider-gold max-w-7xl mx-auto px-5"></div>
+
+<!-- STATS -->
+<section class="py-16 bg-charcoal/50" id="stats-section">
+  <div class="max-w-7xl mx-auto px-5">
+    <div id="stats-container" class="grid grid-cols-2 md:grid-cols-4 gap-8">
+      <!-- Stats dynamically injected here -->
+    </div>
+  </div>
+</section>
+
+<div class="divider-gold max-w-7xl mx-auto px-5"></div>
+
+<!-- PROGRAMS -->
+<section class="py-24" id="programs">
+  <div class="max-w-7xl mx-auto px-5">
+    <div class="flex flex-col md:flex-row md:items-end justify-between mb-14">
+      <div>
+        <div class="flex items-center gap-3 mb-4">
+          <div class="divider-gold w-8"></div>
+          <span class="text-gold text-xs tracking-widest uppercase font-semibold">Our Classes</span>
+        </div>
+        <h2 class="display text-4xl md:text-5xl text-offwhite">Programs Built for<br/><em class="gold-text">Lasting Change</em></h2>
+      </div>
+      <a href="#pricing" class="btn-outline px-6 py-3 rounded-full text-sm font-semibold mt-6 md:mt-0 inline-block text-center">View All Pricing →</a>
+    </div>
+    <div class="grid md:grid-cols-2 gap-6" id="programs-grid"></div>
+  </div>
+</section>
+
+<div class="divider-gold max-w-7xl mx-auto px-5"></div>
+
+<!-- SCHEDULE -->
+<section class="py-24" id="schedule">
+  <div class="max-w-7xl mx-auto px-5">
+    <div class="text-center mb-14">
+      <div class="flex items-center justify-center gap-3 mb-4">
+        <div class="divider-gold w-8"></div>
+        <span class="text-gold text-xs tracking-widest uppercase font-semibold">Weekly Timetable</span>
+        <div class="divider-gold w-8"></div>
+      </div>
+      <h2 class="display text-4xl md:text-5xl text-offwhite">Classes Available Every Day</h2>
+    </div>
+    <div class="card-dark rounded-2xl overflow-hidden">
+      <div class="overflow-x-auto">
+        <table class="w-full">
+          <thead>
+            <tr class="border-b border-white/5">
+              <th class="px-6 py-5 text-left text-xs text-gold font-semibold uppercase tracking-wider">Day</th>
+              <th class="px-6 py-5 text-left text-xs text-gold font-semibold uppercase tracking-wider">🌅 Morning</th>
+              <th class="px-6 py-5 text-left text-xs text-gold font-semibold uppercase tracking-wider">🌇 Evening</th>
+              <th class="px-6 py-5 text-left text-xs text-gold font-semibold uppercase tracking-wider">Reserve</th>
+            </tr>
+          </thead>
+          <tbody id="schedule-body"></tbody>
+        </table>
+      </div>
+    </div>
+    <div class="mt-8 flex justify-center">
+      <a id="schedule-wa" href="#" target="_blank" class="wa-btn px-8 py-4 rounded-full font-semibold inline-flex items-center gap-2 text-sm">
+        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Reserve Your Spot on WhatsApp
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="py-24 bg-charcoal" id="testimonials">
+  <div class="max-w-7xl mx-auto px-5">
+    <div class="text-center mb-14">
+      <div class="flex items-center justify-center gap-3 mb-4">
+        <div class="divider-gold w-8"></div>
+        <span class="text-gold text-xs tracking-widest uppercase font-semibold">Student Stories</span>
+        <div class="divider-gold w-8"></div>
+      </div>
+      <h2 class="display text-4xl md:text-5xl text-offwhite">Real People. Real Results.</h2>
+    </div>
+    <div class="grid md:grid-cols-3 gap-6" id="testimonials-grid"></div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="py-24" id="pricing">
+  <div class="max-w-7xl mx-auto px-5">
+    <div class="text-center mb-14">
+      <div class="flex items-center justify-center gap-3 mb-4">
+        <div class="divider-gold w-8"></div>
+        <span class="text-gold text-xs tracking-widest uppercase font-semibold">Investment in You</span>
+        <div class="divider-gold w-8"></div>
+      </div>
+      <h2 class="display text-4xl md:text-5xl text-offwhite mb-4">Transparent Pricing</h2>
+      <p class="text-muted max-w-md mx-auto">Start with a free class. No strings attached. We believe you'll want to stay.</p>
+    </div>
+    <div class="grid md:grid-cols-3 gap-8 items-start" id="pricing-grid"></div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="py-24 bg-charcoal" id="gallery">
+  <div class="max-w-7xl mx-auto px-5">
+    <div class="text-center mb-14">
+      <div class="flex items-center justify-center gap-3 mb-4">
+        <div class="divider-gold w-8"></div>
+        <span class="text-gold text-xs tracking-widest uppercase font-semibold">The Studio</span>
+        <div class="divider-gold w-8"></div>
+      </div>
+      <h2 class="display text-4xl md:text-5xl text-offwhite">Where Transformation Happens</h2>
+    </div>
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-4" id="gallery-grid"></div>
+  </div>
+</section>
+
+<!-- LEAD MAGNET -->
+<section class="py-24" id="free-offer">
+  <div class="max-w-5xl mx-auto px-5">
+    <div class="card-dark rounded-3xl overflow-hidden border border-gold/30">
+      <div class="grid md:grid-cols-2 gap-0">
+        <div class="p-10 md:p-12">
+          <span class="gold-gradient text-charcoal text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider inline-block mb-6">Free Resource</span>
+          <h2 class="display text-3xl md:text-4xl text-offwhite mb-4" id="lead-title"></h2>
+          <p class="text-muted mb-6" id="lead-desc"></p>
+          <ul class="space-y-3" id="lead-benefits"></ul>
+        </div>
+        <div class="bg-charcoal p-10 md:p-12 border-l border-white/5">
+          <h3 class="text-offwhite font-semibold text-xl mb-2">Claim Your Free Copy</h3>
+          <p class="text-muted text-sm mb-6">We'll send it directly to your WhatsApp.</p>
+          <form id="lead-form" action="" method="POST" class="space-y-4">
+            <input type="hidden" name="_captcha" value="false"/>
+            <input type="hidden" name="_subject" value="Free Routine Request"/>
+            <input type="hidden" name="_next" value=""/>
+            <input type="text" name="name" placeholder="Your Name" required class="w-full bg-surface border border-white/10 rounded-xl px-4 py-3 text-sm text-offwhite placeholder-muted focus:outline-none focus:border-gold/50 focus:ring-1 focus:ring-gold/30"/>
+            <input type="tel" name="phone" placeholder="WhatsApp Number" required class="w-full bg-surface border border-white/10 rounded-xl px-4 py-3 text-sm text-offwhite placeholder-muted focus:outline-none focus:border-gold/50 focus:ring-1 focus:ring-gold/30"/>
+            <span id="lead-form-phone-error" class="error-text hidden">Please enter a valid 10-digit phone number.</span>
+            <input type="email" name="email" placeholder="Email (optional)" class="w-full bg-surface border border-white/10 rounded-xl px-4 py-3 text-sm text-offwhite placeholder-muted focus:outline-none focus:border-gold/50 focus:ring-1 focus:ring-gold/30"/>
+            <span id="lead-form-email-error" class="error-text hidden">Please enter a valid email address.</span>
+            <button type="submit" class="btn-gold w-full py-3.5 rounded-xl text-sm font-semibold uppercase tracking-wider">Get My Free Routine →</button>
+            <p class="text-center text-xs text-muted">100% private. No spam ever.</p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="py-24 bg-charcoal" id="contact">
+  <div class="max-w-7xl mx-auto px-5">
+    <div class="text-center mb-14">
+      <div class="flex items-center justify-center gap-3 mb-4">
+        <div class="divider-gold w-8"></div>
+        <span class="text-gold text-xs tracking-widest uppercase font-semibold">Find Us</span>
+        <div class="divider-gold w-8"></div>
+      </div>
+      <h2 class="display text-4xl md:text-5xl text-offwhite">Visit ATMIK Yoga</h2>
+    </div>
+    <div class="grid md:grid-cols-2 gap-12">
+      <div class="space-y-5">
+        <div class="card-dark rounded-2xl p-6 flex gap-4 items-start">
+          <span class="text-2xl">📍</span>
+          <div>
+            <p class="text-offwhite font-semibold mb-1">Studio Location</p>
+            <p class="text-muted text-sm" id="c-address"></p>
+          </div>
+        </div>
+        <div class="card-dark rounded-2xl p-6 flex gap-4 items-start">
+          <span class="text-2xl">📞</span>
+          <div>
+            <p class="text-offwhite font-semibold mb-1">Contact</p>
+            <a id="c-phone" href="#" class="text-gold font-semibold"></a>
+          </div>
+        </div>
+        <div class="card-dark rounded-2xl p-6 flex gap-4 items-start">
+          <span class="text-2xl">🕐</span>
+          <div>
+            <p class="text-offwhite font-semibold mb-2">Class Timings</p>
+            <p class="text-muted text-sm" id="c-morning"></p>
+            <p class="text-muted text-sm" id="c-evening"></p>
+          </div>
+        </div>
+        <div class="card-dark rounded-2xl p-6 flex items-center justify-center" style="height:160px;">
+          <a id="map-link" href="#" target="_blank" class="btn-gold px-6 py-3 rounded-full text-sm font-semibold">📍 Open in Google Maps</a>
+        </div>
+      </div>
+      <div class="card-dark rounded-2xl p-8 border border-white/5">
+        <h3 class="text-offwhite font-semibold text-lg mb-6">Send a Message</h3>
+        <form id="contact-form" action="" method="POST" class="space-y-4">
+          <input type="hidden" name="_captcha" value="false"/>
+          <input type="text" name="name" placeholder="Your Name" required class="w-full bg-surface border border-white/10 rounded-xl px-4 py-3 text-sm text-offwhite placeholder-muted focus:outline-none focus:border-gold/50 focus:ring-1 focus:ring-gold/30"/>
+          <input type="tel" name="phone" placeholder="Phone Number" required class="w-full bg-surface border border-white/10 rounded-xl px-4 py-3 text-sm text-offwhite placeholder-muted focus:outline-none focus:border-gold/50 focus:ring-1 focus:ring-gold/30"/>
+          <span id="contact-form-phone-error" class="error-text hidden">Please enter a valid 10-digit phone number.</span>
+          <input type="email" name="email" placeholder="Email Address" class="w-full bg-surface border border-white/10 rounded-xl px-4 py-3 text-sm text-offwhite placeholder-muted focus:outline-none focus:border-gold/50 focus:ring-1 focus:ring-gold/30"/>
+          <span id="contact-form-email-error" class="error-text hidden">Please enter a valid email address.</span>
+          <textarea name="message" rows="4" placeholder="How can we help you?" required class="w-full bg-surface border border-white/10 rounded-xl px-4 py-3 text-sm text-offwhite placeholder-muted focus:outline-none focus:border-gold/50 focus:ring-1 focus:ring-gold/30 resize-none"></textarea>
+          <button type="submit" class="btn-gold w-full py-3.5 rounded-xl text-sm font-semibold uppercase tracking-wider">Send Message →</button>
+          <div id="contact-form-status" class="hidden text-gold font-semibold text-sm mt-2 text-center bg-white/5 py-2 rounded-lg border border-white/10">✨ Message sent! We'll get back to you shortly.</div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="border-t border-white/5 py-10">
+  <div class="max-w-7xl mx-auto px-5 flex flex-col md:flex-row items-center justify-between gap-4">
+    <div>
+      <p class="gold-text display text-xl font-semibold" id="footer-name"></p>
+      <p class="text-muted text-sm mt-1" id="footer-addr"></p>
+    </div>
+    <p class="text-muted text-xs">© 2024 <span id="footer-biz"></span>. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+const WA_MSG = encodeURIComponent("Hi, I found your business online and want to know more.");
+
+fetch('data.json')
+  .then(r => r.json())
+  .then(d => {
+    const waLink = `https://wa.me/${d.contact.whatsapp}?text=${WA_MSG}`;
+
+    // NAV
+    document.getElementById('nav-name').textContent = d.businessName;
+    document.getElementById('nav-loc').textContent = 'ASANSOL';
+
+    // FLOAT
+    document.getElementById('wa-float').href = waLink;
+
+    // HERO
+    document.getElementById('hero-img').src = d.hero.image;
+    document.getElementById('hero-title').textContent = d.hero.title;
+    document.getElementById('hero-subtitle').textContent = d.hero.subtitle;
+    document.getElementById('hero-urgency').textContent = '⚡ ' + d.hero.urgency + ' — Spots filling fast';
+    document.getElementById('hero-wa').href = waLink;
+
+    // STATS
+    const sr = document.getElementById('stats-row');
+    if (!d.stats || d.stats.length === 0) {
+      sr.style.display = 'none';
+    } else {
+      d.stats.forEach(s => {
+        sr.innerHTML += `<div class="text-center"><p class="display text-3xl gold-text font-bold">${s.value}</p><p class="text-muted text-xs uppercase tracking-wider mt-1">${s.label}</p></div>`;
+      });
+    }
+
+    // INSTRUCTOR
+    if (!d.instructor) {
+      document.getElementById('about').style.display = 'none';
+    } else {
+      document.getElementById('instructor-img').src = d.instructor.image;
+      document.getElementById('inst-name-card').textContent = d.instructor.name;
+      document.getElementById('inst-title-card').textContent = d.instructor.title;
+      document.getElementById('inst-exp-card').textContent = d.instructor.experience;
+      document.getElementById('instructor-heading').textContent = d.instructor.name;
+      document.getElementById('inst-certs').textContent = d.instructor.certifications;
+      document.getElementById('inst-story').textContent = d.instructor.story;
+      document.getElementById('inst-wa').href = waLink;
+      const is = document.getElementById('inst-specs');
+      d.instructor.specializations.forEach(s => {
+        is.innerHTML += `<span class="border border-gold/30 text-gold text-xs px-3 py-1.5 rounded-full">${s}</span>`;
+      });
+    }
+
+    // PROGRAMS
+    const pg = document.getElementById('programs-grid');
+    if (!d.programs || d.programs.length === 0) {
+      document.getElementById('programs').style.display = 'none';
+    } else {
+      d.programs.forEach(p => {
+        pg.innerHTML += `
+          <div class="card-dark rounded-2xl overflow-hidden group">
+            <div class="overflow-hidden">
+              <img src="${p.image}" alt="${p.name}" class="program-img w-full group-hover:scale-105 transition-transform duration-500"/>
+            </div>
+            <div class="p-7">
+              <div class="flex items-center justify-between mb-3">
+                <span class="border border-gold/30 text-gold text-xs px-2 py-1 rounded-full">${p.duration}</span>
+              </div>
+              <h3 class="display text-2xl text-offwhite mb-1">${p.name}</h3>
+              <p class="text-gold text-sm mb-3 italic">${p.tagline}</p>
+              <p class="text-muted text-sm mb-5 leading-relaxed">${p.description}</p>
+              <ul class="space-y-2 mb-5">
+                ${p.benefits.map(b=>`<li class="flex items-start gap-2 text-sm text-muted"><span class="text-gold mt-0.5">◆</span>${b}</li>`).join('')}
+              </ul>
+              <a href="${waLink}" target="_blank" class="btn-gold text-sm px-5 py-2.5 rounded-full inline-block">Enrol Now →</a>
+            </div>
+          </div>`;
+      });
+    }
+
+    // SCHEDULE
+    const sb = document.getElementById('schedule-body');
+    if (!d.schedule || d.schedule.length === 0) {
+      document.getElementById('schedule').style.display = 'none';
+    } else {
+      d.schedule.forEach((row, i) => {
+        sb.innerHTML += `<tr class="${i%2===0?'table-row-odd':'table-row-even'} border-b border-white/5">
+          <td class="px-6 py-4 text-offwhite font-medium">${row.day}</td>
+          <td class="px-6 py-4 text-muted text-sm">${row.morning}</td>
+          <td class="px-6 py-4 text-muted text-sm">${row.evening}</td>
+          <td class="px-6 py-4"><a href="${waLink}" target="_blank" class="text-gold text-xs font-semibold border border-gold/30 px-3 py-1.5 rounded-full hover:bg-gold/10 transition-colors">Book →</a></td>
+        </tr>`;
+      });
+      document.getElementById('schedule-wa').href = waLink;
+    }
+
+    // TESTIMONIALS
+    const tg = document.getElementById('testimonials-grid');
+    if (!d.testimonials || d.testimonials.length === 0) {
+      document.getElementById('testimonials').style.display = 'none';
+    } else {
+      d.testimonials.forEach(t => {
+        tg.innerHTML += `
+          <div class="card-dark rounded-2xl p-7">
+            <div class="flex gap-1 mb-4">
+              ${Array(t.rating).fill(`<svg class="w-4 h-4 rating-star" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>`).join('')}
+            </div>
+            <span class="border border-green-500/30 text-green-400 text-xs px-2 py-1 rounded-full inline-block mb-4">✓ ${t.result}</span>
+            <p class="text-muted text-sm leading-relaxed mb-5 italic display text-base">"${t.review}"</p>
+            <div class="flex items-center gap-3 pt-4 border-t border-white/5">
+              <img src="${t.image}" alt="${t.name}" class="w-10 h-10 rounded-full object-cover border border-gold/20"/>
+              <div>
+                <p class="text-offwhite font-semibold text-sm">${t.name}</p>
+                <p class="text-muted text-xs">${t.location}</p>
+              </div>
+            </div>
+          </div>`;
+      });
+    }
+
+    // PRICING
+    const prg = document.getElementById('pricing-grid');
+    if (!d.pricing || d.pricing.length === 0) {
+      document.getElementById('pricing').style.display = 'none';
+    } else {
+      d.pricing.forEach(p => {
+        prg.innerHTML += `
+          <div class="rounded-2xl overflow-hidden ${p.highlight ? 'highlight-plan shadow-2xl shadow-gold/10 scale-105' : 'card-dark'}">
+            ${p.highlight ? `<div class="text-center py-2.5 gold-gradient"><p class="text-charcoal text-xs font-bold uppercase tracking-wider">⭐ Best Value</p></div>` : ''}
+            <div class="p-8">
+              <p class="text-muted text-xs uppercase tracking-wider mb-2">${p.name}</p>
+              <p class="display text-5xl ${p.highlight ? 'gold-text' : 'text-offwhite'} font-bold mb-1">${p.price}</p>
+              <p class="text-muted text-sm mb-7">${p.duration} · ${p.tagline}</p>
+              <ul class="space-y-3 mb-8">
+                ${p.features.map(f=>`<li class="flex items-start gap-2 text-sm text-muted"><span class="text-gold">◆</span>${f}</li>`).join('')}
+              </ul>
+              <a href="${waLink}" target="_blank" class="${p.highlight?'btn-gold':'btn-outline'} block text-center py-3.5 rounded-xl text-sm font-semibold transition-all">${p.cta} →</a>
+            </div>
+          </div>`;
+      });
+    }
+
+    // GALLERY
+    const gg = document.getElementById('gallery-grid');
+    if (!d.gallery || d.gallery.length === 0) {
+      document.getElementById('gallery').style.display = 'none';
+    } else {
+      d.gallery.forEach(g => {
+        gg.innerHTML += `<div class="rounded-2xl overflow-hidden group"><img src="${g.image}" alt="${g.caption}" class="gallery-img group-hover:scale-105 transition-transform duration-500 rounded-2xl"/></div>`;
+      });
+    }
+
+    // LEAD MAGNET
+    if (!d.leadMagnet) {
+      document.getElementById('free-offer').style.display = 'none';
+    } else {
+      document.getElementById('lead-title').textContent = d.leadMagnet.title;
+      document.getElementById('lead-desc').textContent = d.leadMagnet.description;
+      const lb = document.getElementById('lead-benefits');
+      d.leadMagnet.benefits.forEach(b => {
+        lb.innerHTML += `<li class="flex items-center gap-3 text-muted text-sm"><span class="text-gold">◆</span>${b}</li>`;
+      });
+    }
+
+    // CONTACT
+    if (!d.contact) {
+      document.getElementById('contact').style.display = 'none';
+    } else {
+      document.getElementById('c-address').textContent = d.contact.address;
+      document.getElementById('c-phone').textContent = '+91 ' + d.contact.phone;
+      document.getElementById('c-phone').href = 'tel:+91' + d.contact.phone;
+      document.getElementById('c-morning').textContent = '🌅 Morning: ' + d.contact.hours.morning;
+      document.getElementById('c-evening').textContent = '🌇 Evening: ' + d.contact.hours.evening;
+      document.getElementById('map-link').href = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(d.contact.address)}`;
+      document.getElementById('lead-form').action = `https://formsubmit.co/${d.contact.email}`;
+      document.getElementById('contact-form').action = `https://formsubmit.co/ajax/${d.contact.email}`;
+      
+      const thankYouUrl = window.location.href.substring(0, window.location.href.lastIndexOf("/") + 1) + "thank-you.html";
+      const leadNext = document.getElementById('lead-form').querySelector('input[name="_next"]');
+      if(leadNext) leadNext.value = thankYouUrl;
+    }
+
+    // FOOTER
+    document.getElementById('footer-name').textContent = d.businessName;
+    document.getElementById('footer-addr').textContent = d.contact.address;
+    document.getElementById('footer-biz').textContent = d.businessName;
+
+    const city = d.contact.address.split(',').slice(-2, -1)[0].trim();
+    document.title = `${d.businessName} | Premium Yoga Studio – ${city}`;
+    document.querySelector('meta[name="description"]').setAttribute("content", d.tagline);
+    if(document.getElementById('nav-loc')) document.getElementById('nav-loc').textContent = city.toUpperCase();
+    document.getElementById('hero-img').alt = `Premium yoga studio ${d.businessName} ${city}`;
+    document.getElementById('instructor-img').alt = `${d.instructor.name} yoga instructor ${city}`;
+
+    // STATS
+    const statsContainer = document.getElementById('stats-container');
+    if (!d.stats || d.stats.length === 0) {
+      document.getElementById('stats-section').style.display = 'none';
+    } else {
+      d.stats.forEach(s => {
+        const valMatch = s.value.match(/[\d.]+/);
+        const targetVal = valMatch ? parseFloat(valMatch[0]) : 0;
+        const suffix = s.value.replace(valMatch ? valMatch[0] : '', '');
+        
+        statsContainer.innerHTML += `
+          <div class="text-center">
+            <p class="text-3xl md:text-5xl font-bold gold-text mb-2 display">
+              <span class="stat-number" data-target="${targetVal}">${targetVal}</span>${suffix}
+            </p>
+            <p class="text-[10px] text-muted font-bold uppercase tracking-[0.2em]">${s.label}</p>
+          </div>`;
+      });
+
+      const statsObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            animateStats();
+            statsObserver.disconnect();
+          }
+        });
+      }, { threshold: 0.5 });
+      statsObserver.observe(statsContainer);
+    }
+
+    function animateStats() {
+      document.querySelectorAll('.stat-number').forEach(el => {
+        const target = parseFloat(el.getAttribute('data-target'));
+        const duration = 1500;
+        let start = 0;
+        let startTime = null;
+        const isDecimal = target % 1 !== 0;
+
+        function step(timestamp) {
+          if (!startTime) startTime = timestamp;
+          const progress = Math.min((timestamp - startTime) / duration, 1);
+          const current = progress * target;
+          el.textContent = isDecimal ? current.toFixed(1) : Math.floor(current);
+          if (progress < 1) {
+            requestAnimationFrame(step);
+          } else {
+            el.textContent = isDecimal ? target.toFixed(1) : target;
+          }
+        }
+        requestAnimationFrame(step);
+      });
+    }
+
+    // FORM VALIDATION
+    const PHONE_REGEX = /^[6-9]\d{9}$/;
+    const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    const validate = (formId) => {
+      const f = document.getElementById(formId);
+      let valid = true;
+
+      const p = f.querySelector('input[name="phone"]');
+      const pe = document.getElementById(formId + '-phone-error');
+      if (p && !PHONE_REGEX.test(p.value.replace(/\s+/g, ''))) {
+        p.classList.add('error-input');
+        pe.classList.remove('hidden');
+        valid = false;
+      } else if(p) {
+        p.classList.remove('error-input');
+        pe.classList.add('hidden');
+      }
+
+      const e = f.querySelector('input[name="email"]');
+      const ee = document.getElementById(formId + '-email-error');
+      if (e && e.value && !EMAIL_REGEX.test(e.value.trim())) {
+        e.classList.add('error-input');
+        ee.classList.remove('hidden');
+        valid = false;
+      } else if(e) {
+        e.classList.remove('error-input');
+        ee.classList.add('hidden');
+      }
+
+      return valid;
+    };
+
+    // LEAD FORM VALIDATION
+    const lf = document.getElementById('lead-form');
+    if(lf) {
+      lf.onsubmit = (e) => {
+        if(!validate('lead-form')) e.preventDefault();
+      };
+    }
+
+    // FORM HANDLER
+    const f = document.getElementById('contact-form');
+    if(f) {
+      f.addEventListener('submit', (e) => {
+        e.preventDefault();
+        if(!validate('contact-form')) return;
+
+        const s = document.getElementById('contact-form-status');
+        const b = f.querySelector('button[type="submit"]');
+        const bt = b.textContent;
+        b.disabled = true;
+        b.textContent = 'Sending...';
+
+        fetch(f.action, {
+          method: "POST",
+          body: new FormData(f),
+          headers: { 'Accept': 'application/json' }
+        })
+        .then(res => {
+          b.disabled = false;
+          b.textContent = bt;
+          if(res.ok) {
+            s.classList.remove('hidden');
+            f.reset();
+            setTimeout(() => s.classList.add('hidden'), 5000);
+          } else {
+            console.error('FormSubmit Error:', res.statusText);
+            alert('Something went wrong. Please try again.');
+          }
+        })
+        .catch(err => {
+          b.disabled = false;
+          b.textContent = bt;
+          console.error('Fetch Error:', err);
+          alert('Error connecting to server.');
+        });
+      });
+    }
+  });
+</script>
+</body>
+</html>
