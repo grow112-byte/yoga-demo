@@ -11,7 +11,7 @@
         body { font-family: 'DM Sans', sans-serif; background: #fafaf9; }
         .serif { font-family: 'DM Serif Display', serif; }
         .card-zoom:hover img { transform: scale(1.05); }
-        .gradient-text { background: linear-gradient(135deg, #f97316, #ea580c); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .gradient-text { background: linear-gradient(135deg, #f97316, #ea580c); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
         .btn-portal { background: linear-gradient(135deg, #1e293b, #334155); transition: all 0.3s ease; }
         .btn-portal:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(30, 41, 59, 0.2); }
     </style>
@@ -77,21 +77,6 @@
         </a>
 
     </main>
-
-    <!-- Footer Info -->
-    <footer class="mt-20 text-center">
-        <p class="text-slate-400 text-xs font-semibold tracking-widest uppercase mb-4">Central Monitoring Enabled</p>
-        <div class="flex items-center justify-center gap-6">
-            <div class="flex items-center gap-2">
-                <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
-                <span class="text-slate-500 text-sm font-medium">Auto-Validating Forms</span>
-            </div>
-            <div class="flex items-center gap-2">
-                <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
-                <span class="text-slate-500 text-sm font-medium">Dynamic Core Sourced</span>
-            </div>
-        </div>
-    </footer>
 
 </body>
 </html>
