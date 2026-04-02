@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yoga Website Templates | Demo Portal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: 'DM Sans', sans-serif; background: #fafaf9; }
+        .serif { font-family: 'DM Serif Display', serif; }
+        .card-zoom:hover img { transform: scale(1.05); }
+        .gradient-text { background: linear-gradient(135deg, #f97316, #ea580c); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .btn-portal { background: linear-gradient(135deg, #1e293b, #334155); transition: all 0.3s ease; }
+        .btn-portal:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(30, 41, 59, 0.2); }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-center p-6 pb-20">
+
+    <!-- Header -->
+    <header class="text-center mb-16 max-w-2xl mx-auto pt-10">
+        <span class="text-orange-600 font-bold tracking-widest uppercase text-xs mb-3 block">Premium Web Templates</span>
+        <h1 class="serif text-4xl md:text-5xl text-slate-800 mb-6">Yoga Website <span class="gradient-text">Design Concepts</span></h1>
+        <p class="text-slate-500 text-lg leading-relaxed">Choose a design concept below to explore the live, fully interactive website demos. Each one is data-driven, mobile-optimized, and ready for launch.</p>
+    </header>
+
+    <!-- Portal Grid -->
+    <main class="grid md:grid-cols-3 gap-8 max-w-6xl w-full">
+
+        <!-- Demo 1: Minimalist -->
+        <a href="demo1.html" class="group block bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden card-zoom transition-all hover:shadow-2xl hover:border-blue-200">
+            <div class="h-52 bg-slate-100 overflow-hidden relative">
+                <img src="https://images.unsplash.com/photo-1545205597-3d9d02c29597?w=600&q=80" alt="Demo 1" class="w-full h-full object-cover transition-transform duration-500"/>
+                <div class="absolute inset-0 bg-blue-600/10 group-hover:bg-transparent transition-colors"></div>
+            </div>
+            <div class="p-8">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="font-bold text-xl text-slate-800 uppercase tracking-wide">Concept 01</h2>
+                    <span class="bg-blue-50 text-blue-600 text-[10px] font-black px-2 py-1 rounded uppercase">Minimalist</span>
+                </div>
+                <p class="text-slate-500 text-sm mb-6 leading-relaxed">A clean, airy design built for clarity and focus. Best for premium boutique studios.</p>
+                <span class="btn-portal block text-center text-white py-3 rounded-xl font-bold text-sm">View Demo →</span>
+            </div>
+        </a>
+
+        <!-- Demo 2: Premium Dark -->
+        <a href="demo2.html" class="group block bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden card-zoom transition-all hover:shadow-2xl hover:border-gold-200">
+            <div class="h-52 bg-charcoal overflow-hidden relative">
+                <img src="https://images.unsplash.com/photo-1599901860904-17e6ed7083a0?w=600&q=80" alt="Demo 2" class="w-full h-full object-cover transition-transform duration-500"/>
+                <div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors"></div>
+            </div>
+            <div class="p-8">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="font-bold text-xl text-slate-800 uppercase tracking-wide">Concept 02</h2>
+                    <span class="bg-amber-50 text-amber-600 text-[10px] font-black px-2 py-1 rounded uppercase">Premium Dark</span>
+                </div>
+                <p class="text-slate-500 text-sm mb-6 leading-relaxed">Elegant, high-contrast aesthetic with gold accents. Designed to build instant authority.</p>
+                <span class="btn-portal block text-center text-white py-3 rounded-xl font-bold text-sm">View Demo →</span>
+            </div>
+        </a>
+
+        <!-- Demo 3: Warm & Sunny -->
+        <a href="demo3.html" class="group block bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden card-zoom transition-all hover:shadow-2xl hover:border-orange-200">
+            <div class="h-52 bg-orange-100 overflow-hidden relative">
+                <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=600&q=80" alt="Demo 3" class="w-full h-full object-cover transition-transform duration-500"/>
+                <div class="absolute inset-0 bg-orange-600/10 group-hover:bg-transparent transition-colors"></div>
+            </div>
+            <div class="p-8">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="font-bold text-xl text-slate-800 uppercase tracking-wide">Concept 03</h2>
+                    <span class="bg-orange-50 text-orange-600 text-[10px] font-black px-2 py-1 rounded uppercase">Warm & Sunny</span>
+                </div>
+                <p class="text-slate-500 text-sm mb-6 leading-relaxed">High-energy, friendly, and vibrant. Perfect for community-focused wellness centers.</p>
+                <span class="btn-portal block text-center text-white py-3 rounded-xl font-bold text-sm">View Demo →</span>
+            </div>
+        </a>
+
+    </main>
+
+    <!-- Footer Info -->
+    <footer class="mt-20 text-center">
+        <p class="text-slate-400 text-xs font-semibold tracking-widest uppercase mb-4">Central Monitoring Enabled</p>
+        <div class="flex items-center justify-center gap-6">
+            <div class="flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                <span class="text-slate-500 text-sm font-medium">Auto-Validating Forms</span>
+            </div>
+            <div class="flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                <span class="text-slate-500 text-sm font-medium">Dynamic Core Sourced</span>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
