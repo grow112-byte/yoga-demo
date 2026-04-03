@@ -29,9 +29,10 @@ tailwind.config = {
 }
 </script>
 <style>
-  body { font-family: 'DM Sans', sans-serif; }
+  * { box-sizing: border-box; }
+  body { font-family: 'DM Sans', sans-serif; overflow-x: hidden; }
   h1, h2, .serif { font-family: 'DM Serif Display', serif; }
-  .hero-overlay { background: linear-gradient(135deg, rgba(29,78,216,0.85) 0%, rgba(14,165,233,0.6) 100%); }
+  .hero-overlay { background: linear-gradient(135deg, rgba(15, 23, 42, 0.8) 0%, rgba(15, 23, 42, 0.4) 100%); }
   .card-hover { transition: transform 0.3s ease, box-shadow 0.3s ease; }
   .card-hover:hover { transform: translateY(-6px); box-shadow: 0 20px 40px rgba(29,78,216,0.12); }
   .btn-primary { background: linear-gradient(135deg, #1d4ed8, #0ea5e9); transition: all 0.3s ease; }
@@ -48,11 +49,78 @@ tailwind.config = {
   @keyframes fadeInUp { from { opacity:0; transform:translateY(30px); } to { opacity:1; transform:translateY(0); } }
   .fade-in { animation: fadeInUp 0.7s ease forwards; }
   .rating-star { color: #f59e0b; }
-  .program-img { height: 220px; object-fit: cover; }
-  .gallery-img { height: 200px; object-fit: cover; width: 100%; }
+  .program-img { height: 200px; object-fit: cover; }
+  .gallery-img { height: 180px; object-fit: cover; width: 100%; }
   .testimonial-card { background: #fff; border: 1px solid #e2e8f0; }
   .error-input { border-color: #ef4444 !important; box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2) !important; }
   .error-text { color: #ef4444; font-size: 0.75rem; font-weight: 600; margin-top: 0.25rem; display: block; }
+
+  /* --- TESTIMONIAL CAROUSEL --- */
+  .testimonial-wrapper { position: relative; }
+  .testimonial-scroll-container {
+    display: flex;
+    gap: 1.25rem;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 1rem;
+    scrollbar-width: none;
+  }
+  .testimonial-scroll-container::-webkit-scrollbar { display: none; }
+  .testimonial-scroll-container .testimonial-card {
+    flex: 0 0 min(85vw, 320px);
+    scroll-snap-align: start;
+  }
+  @media (min-width: 768px) {
+    .testimonial-scroll-container .testimonial-card {
+      flex: 0 0 320px;
+    }
+  }
+  .carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    background: white;
+    border: 1px solid #e2e8f0;
+    color: #1d4ed8;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .carousel-btn:hover { background: #1d4ed8; color: white; }
+  .carousel-btn-left { left: -16px; }
+  .carousel-btn-right { right: -16px; }
+  @media (max-width: 767px) {
+    .carousel-btn { display: none; }
+  }
+
+  /* --- MOBILE FIXES --- */
+  @media (max-width: 767px) {
+    .program-img { height: 180px; }
+    /* Prevent pricing highlight card from overflowing on mobile */
+    .scale-105-mobile-off { transform: none !important; }
+  }
+  img { max-width: 100%; height: auto; }
+
+  /* --- SCHEDULE TABLE MOBILE FIX --- */
+  #schedule table th,
+  #schedule table td { white-space: nowrap; }
+  @media (max-width: 640px) {
+    #schedule table th,
+    #schedule table td {
+      padding-left: 0.75rem;
+      padding-right: 0.75rem;
+      font-size: 0.75rem;
+    }
+  }
 </style>
 </head>
 <body class="bg-white text-dark">
@@ -100,7 +168,7 @@ tailwind.config = {
     <img id="hero-img" src="" alt="Yoga class at ATMIK Yoga Asansol" class="w-full h-full object-cover"/>
     <div class="hero-overlay absolute inset-0"></div>
   </div>
-  <div class="relative z-10 max-w-6xl mx-auto px-4 py-24 md:py-0">
+  <div class="relative z-10 max-w-6xl mx-auto px-4 pt-10 pb-32 md:py-0">
     <div class="max-w-2xl fade-in">
       <div class="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm text-white px-4 py-2 rounded-full text-sm font-medium mb-6">
         <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
@@ -193,7 +261,6 @@ tailwind.config = {
               <th class="px-6 py-4 text-left font-semibold">Day</th>
               <th class="px-6 py-4 text-left font-semibold">🌅 Morning Batch</th>
               <th class="px-6 py-4 text-left font-semibold">🌇 Evening Batch</th>
-              <th class="px-6 py-4 text-left font-semibold">Book</th>
             </tr>
           </thead>
           <tbody id="schedule-body"></tbody>
@@ -217,7 +284,15 @@ tailwind.config = {
       <h2 class="serif text-3xl md:text-4xl text-dark mb-4">What Our Students Say</h2>
       <div class="section-line mx-auto"></div>
     </div>
-    <div class="grid md:grid-cols-3 gap-6" id="testimonials-grid"></div>
+    <div class="testimonial-wrapper px-2 md:px-6">
+      <button class="carousel-btn carousel-btn-left" onclick="document.getElementById('testimonials-scroll').scrollBy({left:-340,behavior:'smooth'})" aria-label="Previous">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+      </button>
+      <div class="testimonial-scroll-container" id="testimonials-scroll"></div>
+      <button class="carousel-btn carousel-btn-right" onclick="document.getElementById('testimonials-scroll').scrollBy({left:340,behavior:'smooth'})" aria-label="Next">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+      </button>
+    </div>
   </div>
 </section>
 
@@ -436,20 +511,19 @@ fetch('data.json')
           <td class="px-6 py-4 font-semibold text-dark">${row.day}</td>
           <td class="px-6 py-4 text-slate-600 text-sm">${row.morning}</td>
           <td class="px-6 py-4 text-slate-600 text-sm">${row.evening}</td>
-          <td class="px-6 py-4"><a href="${waLink}" target="_blank" class="text-primary text-xs font-semibold hover:underline">Book →</a></td>
         </tr>`;
       });
       document.getElementById('schedule-wa').href = waLink;
     }
 
     // TESTIMONIALS
-    const tg = document.getElementById('testimonials-grid');
+    const tg = document.getElementById('testimonials-scroll');
     if (!d.testimonials || d.testimonials.length === 0) {
       document.getElementById('testimonials').style.display = 'none';
     } else {
       d.testimonials.forEach(t => {
         tg.innerHTML += `
-          <div class="card-hover testimonial-card rounded-2xl p-6">
+          <div class="card-hover testimonial-card rounded-2xl p-6" style="min-width:min(85vw,300px);">
             <div class="flex gap-1 mb-3">
               ${Array(t.rating).fill(`<svg class="w-4 h-4 rating-star" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>`).join('')}
             </div>
@@ -466,6 +540,30 @@ fetch('data.json')
       });
     }
 
+    // AUTO SCROLL TESTIMONIALS
+    (function() {
+      const sc = document.getElementById('testimonials-scroll');
+      if (!sc) return;
+      let timer;
+      const STEP = 320;
+      const DELAY = 3000;
+      const scroll = () => {
+        const max = sc.scrollWidth - sc.clientWidth;
+        if (sc.scrollLeft >= max - 10) {
+          sc.scrollTo({ left: 0, behavior: 'smooth' });
+        } else {
+          sc.scrollBy({ left: STEP, behavior: 'smooth' });
+        }
+      };
+      const start = () => { timer = setInterval(scroll, DELAY); };
+      const stop  = () => clearInterval(timer);
+      sc.addEventListener('mouseenter', stop);
+      sc.addEventListener('mouseleave', start);
+      sc.addEventListener('touchstart', stop, { passive: true });
+      sc.addEventListener('touchend', () => setTimeout(start, 2500), { passive: true });
+      start();
+    })();
+
     // PRICING
     const prg = document.getElementById('pricing-grid');
     if (!d.pricing || d.pricing.length === 0) {
@@ -473,9 +571,9 @@ fetch('data.json')
     } else {
       d.pricing.forEach(p => {
         prg.innerHTML += `
-          <div class="card-hover rounded-2xl overflow-hidden ${p.highlight ? 'highlight-card text-white shadow-2xl scale-105' : 'bg-white border border-slate-100 shadow-sm'}">
+          <div class="card-hover rounded-2xl overflow-hidden ${p.highlight ? 'highlight-card text-white shadow-2xl md:scale-105' : 'bg-white border border-slate-100 shadow-sm'}">
             ${p.highlight ? '<div class="text-center py-2 bg-white/20 text-xs font-bold uppercase tracking-wider">⭐ Most Popular</div>' : ''}
-            <div class="p-8">
+            <div class="p-6 md:p-8">
               <p class="font-semibold ${p.highlight ? 'text-blue-100' : 'text-slate-500'} text-sm mb-1">${p.name}</p>
               <p class="text-4xl font-bold mb-1 ${p.highlight ? 'text-white' : 'text-dark'}">${p.price}</p>
               <p class="${p.highlight ? 'text-blue-200' : 'text-slate-400'} text-sm mb-6">${p.duration}</p>

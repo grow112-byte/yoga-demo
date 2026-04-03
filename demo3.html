@@ -31,10 +31,10 @@ tailwind.config = {
 }
 </script>
 <style>
-  * { font-family: 'Nunito', sans-serif; }
+  * { box-sizing: border-box; font-family: 'Nunito', sans-serif; }
   .display { font-family: 'Playfair Display', serif; }
-  body { background: #fffbf5; color: #1c0a00; }
-  .hero-overlay { background: linear-gradient(135deg, rgba(249,115,22,0.88) 0%, rgba(234,88,12,0.65) 60%, rgba(0,0,0,0.3) 100%); }
+  body { background: #fffbf5; color: #1c0a00; overflow-x: hidden; }
+  .hero-overlay { background: linear-gradient(135deg, rgba(20, 10, 0, 0.75) 0%, rgba(20, 10, 0, 0.4) 60%, rgba(0, 0, 0, 0.2) 100%); }
   .btn-sun { background: linear-gradient(135deg, #f97316, #ef4444); color: white; transition: all 0.3s ease; font-weight: 700; }
   .btn-sun:hover { background: linear-gradient(135deg, #ea580c, #dc2626); transform: translateY(-2px); box-shadow: 0 10px 30px rgba(249,115,22,0.35); }
   .btn-cream { background: white; color: #f97316; border: 2px solid #f97316; transition: all 0.3s ease; font-weight: 700; }
@@ -52,10 +52,72 @@ tailwind.config = {
   .highlight-plan { background: linear-gradient(145deg, #f97316, #ef4444); }
   .squiggle { background-image: url("data:image/svg+xml,%3Csvg width='30' height='8' viewBox='0 0 30 8' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 4 C5 0, 10 8, 15 4 S25 0, 30 4' stroke='%23f97316' stroke-width='2' fill='none'/%3E%3C/svg%3E"); background-repeat: repeat-x; height: 8px; }
   .program-img { height: 200px; object-fit: cover; }
-  .gallery-img { height: 200px; object-fit: cover; width: 100%; }
+  .gallery-img { height: 180px; object-fit: cover; width: 100%; }
   .wavy-divider { background: linear-gradient(135deg, #fff7ed, #fed7aa); height: 60px; clip-path: ellipse(55% 100% at 50% 0%); }
   .error-input { border-color: #ef4444 !important; box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2) !important; }
   .error-text { color: #ef4444; font-size: 0.75rem; font-weight: 600; margin-top: 0.25rem; display: block; }
+
+  /* --- TESTIMONIAL CAROUSEL --- */
+  .testimonial-wrapper { position: relative; }
+  .testimonial-scroll-container {
+    display: flex;
+    gap: 1.25rem;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 1rem;
+    scrollbar-width: none;
+  }
+  .testimonial-scroll-container::-webkit-scrollbar { display: none; }
+  .testimonial-scroll-container .t-card {
+    flex: 0 0 min(85vw, 300px);
+    scroll-snap-align: start;
+  }
+  @media (min-width: 768px) {
+    .testimonial-scroll-container .t-card {
+      flex: 0 0 300px;
+    }
+  }
+  .carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    background: white;
+    border: 2px solid #fed7aa;
+    color: #f97316;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(249,115,22,0.15);
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .carousel-btn:hover { background: #f97316; color: white; border-color: #f97316; }
+  .carousel-btn-left { left: -16px; }
+  .carousel-btn-right { right: -16px; }
+  @media (max-width: 767px) {
+    .carousel-btn { display: none; }
+  }
+
+  /* --- MOBILE FIXES --- */
+  img { max-width: 100%; height: auto; }
+
+  /* --- SCHEDULE TABLE MOBILE FIX --- */
+  #schedule table th,
+  #schedule table td { white-space: nowrap; }
+  @media (max-width: 640px) {
+    #schedule table th,
+    #schedule table td {
+      padding-left: 0.75rem;
+      padding-right: 0.75rem;
+      font-size: 0.75rem;
+    }
+  }
 </style>
 </head>
 <body>
@@ -104,7 +166,7 @@ tailwind.config = {
     <img id="hero-img" src="" alt="Yoga class Asansol ATMIK Yoga" class="w-full h-full object-cover"/>
     <div class="hero-overlay absolute inset-0"></div>
   </div>
-  <div class="relative z-10 max-w-6xl mx-auto px-4 py-24">
+  <div class="relative z-10 max-w-6xl mx-auto px-4 pt-10 pb-32 md:py-24">
     <div class="max-w-2xl">
       <!-- Urgency badge -->
       <div class="inline-flex items-center gap-2 bg-white/90 text-sun px-4 py-2 rounded-full text-sm font-black mb-6 shadow-lg">
@@ -198,7 +260,6 @@ tailwind.config = {
               <th class="px-6 py-4 text-left font-black">Day</th>
               <th class="px-6 py-4 text-left font-black">🌅 Morning</th>
               <th class="px-6 py-4 text-left font-black">🌇 Evening</th>
-              <th class="px-6 py-4 text-left font-black">Join</th>
             </tr>
           </thead>
           <tbody id="schedule-body"></tbody>
@@ -222,7 +283,15 @@ tailwind.config = {
       <h2 class="display text-3xl md:text-4xl text-bark font-bold mb-2">Real Stories. Real Smiles. 😊</h2>
       <p class="text-bark/60 text-sm">70+ students have transformed their lives. Here's what they say.</p>
     </div>
-    <div class="grid md:grid-cols-3 gap-6" id="testimonials-grid"></div>
+    <div class="testimonial-wrapper px-2 md:px-6">
+      <button class="carousel-btn carousel-btn-left" onclick="document.getElementById('testimonials-scroll').scrollBy({left:-320,behavior:'smooth'})" aria-label="Previous">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"/></svg>
+      </button>
+      <div class="testimonial-scroll-container" id="testimonials-scroll"></div>
+      <button class="carousel-btn carousel-btn-right" onclick="document.getElementById('testimonials-scroll').scrollBy({left:320,behavior:'smooth'})" aria-label="Next">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
+      </button>
+    </div>
   </div>
 </section>
 
@@ -339,15 +408,15 @@ tailwind.config = {
 </section>
 
 <!-- FOOTER -->
-<footer class="bg-bark text-orange-200 py-10">
+<footer class="bg-bark py-10">
   <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4">
     <div>
       <p class="text-white font-black text-xl display" id="footer-name"></p>
-      <p class="text-sm opacity-70 mt-1" id="footer-addr"></p>
+      <p class="text-white text-sm mt-1" id="footer-addr"></p>
     </div>
     <div class="text-center">
-      <p class="text-sm opacity-60">Made with ❤️ for Asansol</p>
-      <p class="text-xs opacity-40 mt-1">© 2024 <span id="footer-biz"></span></p>
+      <p class="text-white text-sm">Made with ❤️ for Asansol</p>
+      <p class="text-white text-xs mt-1">© 2024 <span id="footer-biz"></span></p>
     </div>
   </div>
 </footer>
@@ -438,20 +507,19 @@ fetch('data.json')
           <td class="px-6 py-4 font-black text-bark">${row.day}</td>
           <td class="px-6 py-4 text-bark/70 text-sm font-semibold">${row.morning}</td>
           <td class="px-6 py-4 text-bark/70 text-sm font-semibold">${row.evening}</td>
-          <td class="px-6 py-4"><a href="${waLink}" target="_blank" class="btn-sun text-xs px-3 py-1.5 rounded-full font-black">Book!</a></td>
         </tr>`;
       });
       document.getElementById('schedule-wa').href = waLink;
     }
 
     // TESTIMONIALS
-    const tg = document.getElementById('testimonials-grid');
+    const tg = document.getElementById('testimonials-scroll');
     if (!d.testimonials || d.testimonials.length === 0) {
       document.getElementById('testimonials').style.display = 'none';
     } else {
       d.testimonials.forEach(t => {
         tg.innerHTML += `
-          <div class="card-warm p-6">
+          <div class="card-warm p-6 t-card">
             <div class="flex gap-1 mb-3">
               ${Array(t.rating).fill(`<svg class="w-4 h-4 rating-star" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>`).join('')}
             </div>
@@ -468,6 +536,30 @@ fetch('data.json')
       });
     }
 
+    // AUTO SCROLL TESTIMONIALS
+    (function() {
+      const sc = document.getElementById('testimonials-scroll');
+      if (!sc) return;
+      let timer;
+      const STEP = 320;
+      const DELAY = 3000;
+      const scroll = () => {
+        const max = sc.scrollWidth - sc.clientWidth;
+        if (sc.scrollLeft >= max - 10) {
+          sc.scrollTo({ left: 0, behavior: 'smooth' });
+        } else {
+          sc.scrollBy({ left: STEP, behavior: 'smooth' });
+        }
+      };
+      const start = () => { timer = setInterval(scroll, DELAY); };
+      const stop  = () => clearInterval(timer);
+      sc.addEventListener('mouseenter', stop);
+      sc.addEventListener('mouseleave', start);
+      sc.addEventListener('touchstart', stop, { passive: true });
+      sc.addEventListener('touchend', () => setTimeout(start, 2500), { passive: true });
+      start();
+    })();
+
     // PRICING
     const prg = document.getElementById('pricing-grid');
     if (!d.pricing || d.pricing.length === 0) {
@@ -475,9 +567,9 @@ fetch('data.json')
     } else {
       d.pricing.forEach(p => {
         prg.innerHTML += `
-          <div class="rounded-3xl overflow-hidden ${p.highlight ? 'highlight-plan shadow-2xl scale-105' : 'bg-white border-2 border-sunMid'}">
+          <div class="rounded-3xl overflow-hidden ${p.highlight ? 'highlight-plan shadow-2xl md:scale-105' : 'bg-white border-2 border-sunMid'}">
             ${p.highlight ? `<div class="text-center py-3 bg-white/20"><p class="text-white text-xs font-black uppercase tracking-wider">🏆 Most Popular!</p></div>` : ''}
-            <div class="p-8">
+            <div class="p-6 md:p-8">
               <p class="${p.highlight?'text-orange-100':'text-bark/50'} text-xs font-black uppercase tracking-wider mb-2">${p.name}</p>
               <p class="text-4xl font-black mb-1 ${p.highlight?'text-white':'text-bark'}">${p.price}</p>
               <p class="${p.highlight?'text-orange-100':'text-bark/50'} text-sm mb-6 font-semibold">${p.duration} · ${p.tagline}</p>
